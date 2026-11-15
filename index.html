@@ -1,198 +1,147 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Moses Ntembwa (MR TEES) AI</title>
+<title>Mr Tees (Moses Ntembwa) AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;800&family=Nunito+Sans:wght@400;600;800&display=swap" rel="stylesheet">
 <style>
-:root{--g1:#0d4a2e;--g2:#116b3f;--g3:#1b8a52;--white:#fff;--ink:#0b2e1c;--wa:#25d366;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px)}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0}
-body{font-family:"Segoe UI","Trebuchet MS",sans-serif;color:var(--white);background:var(--g1) radial-gradient(ellipse at 50% 0%,var(--g3),var(--g2) 42%,var(--g1));overflow:hidden}
-.garden{position:fixed;inset:0;pointer-events:none;z-index:0}
-.garden svg{position:absolute;overflow:visible}
-.tl{top:-10px;left:-10px;width:210px}.tr{top:-10px;right:-10px;width:210px;transform:scaleX(-1)}
-.bl{bottom:76px;left:-10px;width:170px;transform:scaleY(-1)}.br{bottom:76px;right:-10px;width:170px;transform:scale(-1,-1)}
-.app{position:relative;z-index:1;height:100%;max-width:680px;margin:0 auto;display:flex;flex-direction:column}
-.hero{flex:1;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:24px 28px}
-.hero h1{font-family:Georgia,"Palatino Linotype",serif;font-size:clamp(2.1rem,8vw,3.2rem);line-height:1.1;margin:0 0 14px}
-.hero p{font-size:1.12rem;line-height:1.55;max-width:30ch;margin:0 0 18px}
-.chips{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
-.chips button{background:#ffffff1f;color:#fff;border:1px solid #ffffffaa;border-radius:20px;padding:8px 14px;font-size:.92rem;cursor:pointer}
-.top{display:none;padding:12px 18px;background:var(--g1);box-shadow:0 2px 10px #0006;position:relative;z-index:2}.top b{font-family:Georgia,serif;font-size:1.1rem}.top small{display:block;opacity:.85}
-#log{flex:1;overflow-y:auto;padding:8px 14px;display:none;flex-direction:column;gap:10px}
-.chatting .hero{display:none}.chatting .top{display:block}.chatting #log{display:flex}
-.msg{max-width:86%;padding:11px 15px;border-radius:18px;line-height:1.5;white-space:pre-wrap;font-size:1rem}
-.bot{background:#fff;color:var(--ink);align-self:flex-start;border-bottom-left-radius:4px}
-.me{background:var(--g1);border:1px solid #ffffff66;align-self:flex-end;border-bottom-right-radius:4px}
-.wa{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:var(--wa);color:#fff;padding:7px 14px 7px 9px;border-radius:22px;text-decoration:none;font-weight:700;font-size:.9rem}
-.wa svg{width:22px;height:22px;fill:#fff}
-form{display:flex;gap:8px;padding:12px 14px;padding-bottom:calc(12px + env(safe-area-inset-bottom,0px))}
-input{flex:1;min-width:0;padding:14px 16px;border-radius:24px;border:none;font-size:1rem}
-form button{background:#fff;color:var(--g1);border:none;border-radius:24px;padding:0 22px;font-weight:700;font-size:1rem;cursor:pointer}
-input:focus-visible,button:focus-visible,a:focus-visible{outline:3px solid #ffe27a}
-.fab{position:fixed;z-index:5;right:16px;bottom:calc(82px + env(safe-area-inset-bottom,0px));width:58px;height:58px;border-radius:50%;background:var(--wa);display:grid;place-items:center;box-shadow:0 4px 14px #0007}
-.fab svg{width:34px;height:34px;fill:#fff}
-@media(max-width:480px){.tl,.tr{width:140px}.bl,.br{width:120px}}
+:root{--navy:#0a2e5c;--deep:#061c3a;--night:#030f21;--gold:#ff7a00;--gold2:#ffa94d;--ink:#ff9f43;--mute:#ffc58a;--green:#2ee66b;--wa:#25D366;color-scheme:dark;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:'Nunito Sans','Segoe UI',Arial,sans-serif;color:var(--ink);background:radial-gradient(ellipse at 50% 0%,#0b2a6b 0%,#050d24 45%,#000 100%);background-color:#000;overflow:hidden}
+#stars{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+.app{position:relative;z-index:1;height:100%;display:flex;flex-direction:column;max-width:520px;margin:0 auto}
+h1,h2{font-family:'Fraunces',Georgia,serif}
+button{font:inherit;cursor:pointer}
+:focus-visible{outline:3px solid var(--gold2);outline-offset:2px}
+#sky{position:fixed;top:calc(84px + env(safe-area-inset-top,0px));right:18px;width:44px;height:44px;border-radius:50%;z-index:0;pointer-events:none}
+@keyframes drift{from{transform:translate(0,0)}to{transform:translate(calc(-100vw + 90px),46px)}}
+#sky{animation:drift 110s ease-in-out infinite alternate}
+#sky.sun{background:radial-gradient(circle at 40% 40%,#fff6b0,#ffc933 55%,#ff9500);box-shadow:0 0 30px 10px rgba(255,170,0,.55),0 0 90px 30px rgba(255,140,0,.25);animation:drift 110s ease-in-out infinite alternate,pulse 5s ease-in-out infinite}
+#sky.luna{background:radial-gradient(circle at 62% 30%,rgba(0,0,0,.14) 7px,transparent 8px),radial-gradient(circle at 35% 62%,rgba(0,0,0,.12) 10px,transparent 11px),radial-gradient(circle at 35% 35%,#fff,#e3eaf7 60%,#aab7cf);box-shadow:0 0 28px 6px rgba(220,230,255,.45),0 0 80px 24px rgba(120,160,255,.18)}
+@keyframes pulse{50%{box-shadow:0 0 40px 14px rgba(255,170,0,.7),0 0 110px 40px rgba(255,140,0,.3)}}
+/* chat */
+#chat{display:flex;flex:1;min-height:0;flex-direction:column}
+.head{display:flex;align-items:center;gap:12px;padding:12px 14px;background:transparent;border-bottom:1px solid rgba(255,255,255,.12)}
+.head b{display:block;font-family:'Fraunces',serif;font-size:15px;letter-spacing:.3px;color:var(--green);line-height:1.15;text-shadow:0 0 12px rgba(46,230,107,.45)}
+.head span{font-size:12px;color:var(--mute)}
+.head span i{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--wa);margin-right:5px}
+.head div{flex:1;min-width:0}
+.new{background:transparent;border:1px solid var(--gold);color:var(--gold2);border-radius:18px;padding:7px 12px;font-size:12px}
+#msgs{flex:1;min-height:0;overflow-y:auto;padding:14px 12px;display:flex;flex-direction:column;gap:9px}
+.day{align-self:center;font-size:12px;color:var(--gold2);border:1px solid rgba(201,162,39,.35);border-radius:16px;padding:4px 14px;background:rgba(10,46,92,.5)}
+.msg{display:flex;gap:8px;max-width:88%}
+.msg.me{align-self:flex-end;flex-direction:row-reverse}
+.bub{padding:2px 4px;border-radius:0;font-size:14px;line-height:1.5;overflow-wrap:anywhere}
+.msg .av{display:none}
+.bot .bub{color:var(--ink)}
+.me .bub{color:#fff;text-align:right}
+.bub a{color:var(--gold2)}
+.wa{display:inline-flex;align-items:center;gap:8px;margin-top:8px;background:var(--wa);color:#fff!important;text-decoration:none;font-weight:800;font-size:13px;padding:8px 14px;border-radius:26px;box-shadow:0 4px 14px rgba(37,211,102,.35)}
+.wa svg{width:20px;height:20px;fill:#fff}
+.bar{display:flex;gap:8px;padding:10px 12px 12px;background:transparent}
+.bar input{flex:1;min-width:0;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:22px;color:#fff;padding:11px 15px;font:inherit;font-size:16px}
+.bar input::placeholder{color:var(--mute)}
+.send{flex:none;width:48px;height:48px;border-radius:50%;border:0;background:linear-gradient(135deg,var(--gold2),var(--gold));color:var(--navy);font-size:20px;font-weight:800}
+@media(prefers-reduced-motion:reduce){#sky{animation:none!important}}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
-<symbol id="flower" viewBox="-50 -50 100 100"><g fill="currentColor" stroke="#0d4a2e22" stroke-width="1"><ellipse cx="0" cy="-26" rx="13" ry="24"/><ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(60)"/><ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(120)"/><ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(180)"/><ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(240)"/><ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(300)"/></g><circle r="11" fill="#ffd54a"/><circle r="5" fill="#f59e0b"/></symbol>
-<symbol id="leaf" viewBox="0 0 60 30"><path d="M2 15Q30-8 58 15Q30 38 2 15Z" fill="currentColor"/></symbol>
-<symbol id="wa" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></symbol>
-</defs></svg>
-
-<div class="garden" aria-hidden="true">
-<svg class="tl" viewBox="0 0 230 230"><path d="M0 30Q90 40 150 110T220 220" stroke="#2fa866" stroke-width="5" fill="none"/><use href="#leaf" x="40" y="22" width="44" height="22" style="color:#2fa866" transform="rotate(20 62 33)"/><use href="#leaf" x="100" y="80" width="44" height="22" style="color:#3cc47a" transform="rotate(50 122 91)"/><use href="#flower" x="10" y="10" width="76" height="76" style="color:#ffc6dd"/><use href="#flower" x="105" y="60" width="58" height="58" style="color:#fff"/><use href="#flower" x="150" y="140" width="44" height="44" style="color:#ffb3c7"/><use href="#flower" x="20" y="100" width="40" height="40" style="color:#ffe9a8"/></svg>
-<svg class="tr" viewBox="0 0 230 230"><path d="M0 30Q90 40 150 110T220 220" stroke="#2fa866" stroke-width="5" fill="none"/><use href="#leaf" x="40" y="22" width="44" height="22" style="color:#2fa866" transform="rotate(20 62 33)"/><use href="#flower" x="10" y="10" width="68" height="68" style="color:#fff3b0"/><use href="#flower" x="105" y="60" width="52" height="52" style="color:#ffc6dd"/><use href="#flower" x="150" y="140" width="40" height="40" style="color:#fff"/></svg>
-<svg class="bl" viewBox="0 0 230 230"><path d="M0 30Q90 40 150 110T220 220" stroke="#2fa866" stroke-width="5" fill="none"/><use href="#flower" x="10" y="10" width="70" height="70" style="color:#fff"/><use href="#flower" x="105" y="60" width="50" height="50" style="color:#ffb3c7"/></svg>
-<svg class="br" viewBox="0 0 230 230"><path d="M0 30Q90 40 150 110T220 220" stroke="#2fa866" stroke-width="5" fill="none"/><use href="#flower" x="10" y="10" width="64" height="64" style="color:#ffc6dd"/><use href="#flower" x="100" y="64" width="46" height="46" style="color:#fff3b0"/></svg>
-</div>
-
-<a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Chat with Moses on WhatsApp"><svg viewBox="0 0 24 24"><use href="#wa"/></svg></a>
-
-<div class="app" id="app">
-<div class="top"><b>Moses Ntembwa (MR TEES) AI</b><small>Automated assistant · MR TEES Education Services</small></div>
-<section class="hero">
-<h1 id="ttl"></h1>
-<p>I am Moses Ntembwa (MR TEES) AI. Ask anything you want to know.</p>
-<div class="chips" id="chips"><button>How do I apply for HELSB?</button><button>What is TPIN?</button><button>How do I apply to university?</button><button>What is an appeal?</button></div>
-</section>
-<div id="log" aria-live="polite"></div>
-<form id="form"><input id="msg" autocomplete="off" placeholder="Type your question here…" aria-label="Your question"><button type="submit">Ask</button></form>
+<canvas id="stars" aria-hidden="true"></canvas>
+<div id="sky" aria-hidden="true"></div>
+<div class="app">
+  <section id="chat">
+    <div class="head">
+      <div><b>Mr Tees (Moses Ntembwa) AI</b><span><i></i>Online • Automated assistant</span></div>
+      <button class="new" id="clear">New chat</button>
+    </div>
+    <div id="msgs" aria-live="polite"></div>
+    <div class="bar">
+      <input id="inp" type="text" placeholder="Type your question…" autocomplete="off" aria-label="Your message">
+      <button class="send" id="send" aria-label="Send">➤</button>
+    </div>
+  </section>
 </div>
 
 <script>
-const NUMBER="260771043702";
-const WA="https://wa.me/"+NUMBER;
-document.getElementById('fab').href=WA+"?text="+encodeURIComponent("Hello Moses, I need help.");
+// Moses WhatsApp: 0771043702 (Zambia code 260, no zero, no plus)
+var WHATSAPP="260771043702";
+var KEY="mrtees_chat_v1";
 
-function getPeriod(){const h=new Date().getHours();return h<12?'morning':h<17?'afternoon':'evening';}
-const period=getPeriod();
-const GREET={morning:'Good morning',afternoon:'Good afternoon',evening:'Good evening'}[period];
-document.getElementById('ttl').textContent=GREET;
+var KB=`You are "Mr Tees (Moses Ntembwa) AI", the automated assistant of MR TEES Education Services, Zambia, founded by Moses Ntembwa. You are NOT Moses and never pretend to be human.
+Answer EVERY question the customer asks, on any topic (education, studies, business, money, life advice, general knowledge, technology), clearly and correctly. For MR TEES, HELSB and Zambian education topics use the knowledge below.
+STYLE: very simple English, warm and respectful, short answers (under 120 words unless asked for more), one question at a time. You may say brother/sister/friend. Use numbered steps for how-to. Never make anyone feel bad about poor English or lack of knowledge. Remember the whole conversation.
+RULES:
+1. Questions for information, advice or encouragement (how to apply, what is HELSB, how to write a CV, exam tips, life advice): answer fully and for free, give official websites. Do NOT mention Moses, prices or WhatsApp.
+2. Only when the customer asks MR TEES to DO a service for them (e.g. "help me apply", "write my CV for me"), asks the price of a service, wants Moses or a human, wants to pay, has a complaint or a complicated case: name the service, say in one line what it covers, give the exact fee, say Moses Ntembwa handles it, and END the message with the exact token [[WA]] on its own line (the website turns it into the WhatsApp button). Show the button ONLY for a MR TEES service (never for general questions). If the customer asks for the number, give it: 0771043702 (WhatsApp). Never use [[WA]] in any other case.
+3. Never invent prices, deadlines, requirements, links, statuses or results. If unsure, say so and point to the official source. Fees are MR TEES service charges, NOT government, university or HELSB fees. Service fee is paid before work starts. There is NO registration fee (the old K20 fee was removed): never mention it. Payment methods and numbers are confirmed by Moses on WhatsApp. Never say a payment was received. Capacity is about 10 customers per day, so no same-day promises.
+4. Never promise admission, HELSB loan, scholarship, appeal success, passport, NRC or any result from another institution. Never ask for passwords, PINs, OTPs or NRC numbers. Refuse fake documents, changed results and bribes. Warn about people who sell HELSB loans.
+5. Ask a useful follow-up when natural (finished Grade 12: congratulate, ask plans; rejected: comfort, ask the reason; unsure of course: ask subjects and interests).
+6. About Moses: founder of MR TEES; young Zambian student of BSc Information Systems and Business Analytics at Kapasa Makasa University (Chinsali, Muchinga), expected graduation 2029; began helping school leavers in 2025; vision: a trusted, professional education and digital services brand; support is nationwide. Never invent achievements, never give private details. MR TEES is not HELSB, a university or government.
+SERVICES AND FEES (kwacha), the complete official list: 1 Accommodation assistant (agent) 250; 2 HELSB application 50; 3 HELSB appeal 30; 4 HELSB returning student 50; 5 scholarship application 100; 6 university admission 50; 7 ECZ results verification 40; 8 ZAQA certificate verification 40; 9 ZRA TPIN certificate 30; 10 CV writing 50; 11 application letter 20; 12 past papers with solutions 30 (one course); 13 accommodation application 30; 14 screening support 30; 15 NRC application/replacement 30; 16 passport application 50; 17 email and account creation 20; 18 interview preparation 40; 19 business registration 80; 20 attachment/internship application 50; 21 assignment and research help 50 (teach, never cheat); 22 online application support 30; 23 document scanning and printing 20; 24 WhatsApp/digital support 20; 25 career and academic advice 30. Accommodation: the agent service (K250) means Moses acts as an agent to find and arrange accommodation; the application service (K30) only helps fill the hostel application. If unclear, ask which one. Government, university or PACRA fees are extra. Any service not on this list: Moses must confirm the price.
+HELSB FACTS: Higher Education Loans and Scholarships Board, a Zambian government body (Act No. 31 of 2016) for loans and scholarships. It is not a university; admission comes first. Eligible: Zambian with green NRC, admitted to a supported public university, within age and Grade 12 year limits in the current advert, real financial need. Support levels 100/75/50/25 percent of tuition, decided by HELSB. Covers tuition, registration, accommodation, plus allowances. Documents: application letter, admission letter, Grade 12 results, applicant and guardian NRC, plus supporting letters or affidavit of means if needed (must be true and sworn before a Commissioner for Oaths). PDFs max 5MB each. Apply early at portal.helsb.gov.zm. Appeals follow the official announcement. Loan is repaid after graduation (one year grace). 2026/27 advert deadlines: Mulungushi and Palabana 30 May; Kwame Nkrumah and Chalimbana 30 June; Mukuba 30 July; CBU 30 August; UNZA 30 September; Kapasa Makasa, ZUT and Levy Mwanawasa 30 October. Deadlines change every year: always tell students to check the latest advert. Contacts: info@helsb.gov.zm, support@helsb.gov.zm (portal problems), +260 211 447 110, Mon-Fri 08:00-17:00. Follow the Facebook page "Higher Education Loans and Scholarships Board - Zambia". HELSB statuses (25 submitted, 50 verified, 75 shortlisted, 100 awarded): explain carefully, none is a guarantee.
+OFFICIAL LINKS: helsb.gov.zm, portal.helsb.gov.zm, applications.unza.zm (UNZA), cbu.ac.zm, kmu.ac.zm, hea.org.zm and online.hea.org.zm (recognised institutions), exams-council.org.zm (ECZ), zaqa.gov.zm, zra.org.zm.`;
 
-// ===== KNOWLEDGE: [id, keywords, answer]. Add your own answers here. =====
-const KB=[
-["greeting",["hello","hi","hey","good morning","good afternoon","good evening","mwapoleni","muli shani","how are you"],GREET+"! I am Moses Ntembwa (MR TEES) AI, an automated assistant. What do you want to know?"],
-["fee",["registration","register","registration fee","sign up","how much","price","cost","charge"],"Registration is K20, paid one time only. Service charges are separate and are paid before the service starts. If I do not know the price of your request, please confirm it with Moses."],
-["services",["services","what do you do","offer","assist"],"We help with university admissions, HELSB support, ECZ and ZAQA verification, school information, and scholarships or bursaries."],
-["admissions",["admission","apply university","application","applications","acceptance","kapasa","intake"],"To apply to a university: go to its website or admissions office, fill the form, attach Grade 12 results and NRC, pay the application fee, and submit before the deadline. Dates and fees change, so confirm with the official office."],
-["helsb",["helsb","loan","bursary","loan board"],"HELSB is the Higher Education Loans and Scholarships Board. It gives student loans and bursaries in Zambia. Usually you need acceptance at a public university first. Apply on the HELSB online portal, upload your documents (acceptance letter, Grade 12 results, NRC, parents’ NRC) and submit before the deadline. Nobody can guarantee a loan."],
-["appeal",["appeal","appeals","not accepted","rejected","not awarded"],"An appeal is a formal letter asking them to look at your case again when you were not accepted or not awarded. Write calmly and honestly, explain what happened, and attach proof."],
-["screening",["screening","original documents"],"Screening is when the university or HELSB checks your original documents. Carry your originals and copies, and arrive early."],
-["zaqa",["zaqa","ecz","verification","verify","foreign results","qualification"],"ZAQA is the Zambia Qualifications Authority. It verifies qualifications, especially foreign results. ECZ results are verified through ECZ."],
-["accommodation",["accommodation","hostel","boarding"],"After acceptance, apply for accommodation through the student affairs office and pay the fee. Apply early and keep your receipt."],
-["tpin",["tpin","zra","tax number"],"TPIN is the Taxpayer Identification Number from ZRA. Go to a ZRA office or the ZRA website with your NRC. It is free. Get it early, you may need it for HELSB."],
-["deadline",["deadline","last date","closing date"],"A deadline is the last day to submit. Do not wait for the last day. I do not guess dates, please check the official notice."],
-["scholarships",["scholarship","scholarships","bursaries","sponsorship","grant","funding"],"HELSB is not the only way. There are scholarships, bursaries, sponsorships and grants. Check if it is fully funded, partly funded or tuition only. Never pay a strange fee to get a scholarship."],
-["love",["love","relationship"],"For me, love is care, patience, prayer and staying loyal even when things are hard. Do not rush, pray first."],
-["bible",["bible","verse","church","pray","prayer","god"],"Prayer is talking to God like a father. A good verse is Jeremiah 29:11: God knows the plans He has for you, plans to give you hope and a future."],
-["payment",["airtel","mtn","momo","payment","paid","mobile money"],"You can pay with Airtel Money or MTN MoMo. A payment counts only after it shows in the payment records, so send your proof to Moses on WhatsApp."],
-["helsbcontact",["helsb support email","helsb email","helsb support","helsb contact","helsb phone","helsb number","helsb address","helsb office","helsb website","email of helsb","contact helsb","helsb contacts"],"Official HELSB contacts (from the HELSB website):\nEmail: info@helsb.gov.zm\nPhone: +260 211 250 726\nWebsite: helsb.gov.zm\nOffice: Plot 8, United Church of Zambia Synod, Mosi-O-Tunya Road, Woodlands, Lusaka.\nPlease confirm on the website in case something has changed."],
-["married",["are you married","are you single","do you have a wife","do you have a husband","do you have a girlfriend","do you have a boyfriend","relationship status","married"],"Haha, I am an AI, so I am not married. 😊 About Moses, I only share what is on this page. If you want to know him personally, you can message him on WhatsApp (0771043702)."],
-["aboutme",["how old are you","your age","where do you live","where are you from","where are you based","how old is moses","where is moses"],"I am an AI, so I do not have an age or a home. 😊 Moses is a student at Kapasa Makasa University in Chinsali, Muchinga Province."],
-["whomoses",["who is moses","moses ntembwa","about moses","your founder","who is the founder","tell me about moses"],"Moses Ntembwa (MR TEES) is a young Zambian student at Kapasa Makasa University in Chinsali, studying Information Systems and Business Analytics. He started MR TEES Education Services to help students understand applications, HELSB and other opportunities. His motto: start small, learn every day, remain humble, trust God."],
-["canhelp",["what can you do","what can you help","i need help","can you help me","help me","i have a question"],"Alright, let’s look at this together. I can explain university applications, HELSB, TPIN, appeals, screening, ZAQA and ECZ verification, scholarships and our fees. Tell me what you need, in your own words."],
-["know_love",["how do i know i love","know you love","know i love someone"],"When you think about their happiness before yours, and you pray for them, that is a good sign. Take your time."],
-["family",["family","parents","mother","father","brother","sister"],"Family is home, love, support and prayer. Keep close to your family, and thank them for every small help."],
-["helsb_guarantee",["guarantee loan","will i get a loan","sure of loan","promise loan","can you guarantee"],"I wish I could promise that, but I cannot. Loan awards depend on HELSB's official selection. What I can do is help you understand the requirements and prepare your application well."],
-["helsb_coverage",["is university under helsb","covered by helsb","helsb covered","helsb list","does helsb fund","is kmu under helsb","does helsb cover kmu","kmu helsb","kapasa makasa helsb","which universities helsb","helsb universities"],"According to the HELSB website, student loans are given to undergraduate students joining UNZA, CBU, KMU, MKU, MU, CHAU and KNU. Yes, KMU is on that list. Policies can change, so please confirm on helsb.gov.zm."],
-["money_problem",["no money","broke","cannot afford","can't afford","poor","balance is crying","no fees","school fees"],"Hahaha, even the bank account needs encouragement sometimes! But do not give up. Let us look at cheaper schools, chances to apply, and any financial help. What programme do you want?"],
-["password_safety",["password","pin","my login","send my password","login details","otp"],"Please never share your password, PIN or OTP with me, Moses or anyone in chat. Keep them private. For account problems, use the official website."],
-["request_status",["status","my request","is it done","completed","pending","processing","progress","update on my"],"A request is either submitted, pending, processing or completed. I cannot say it is completed unless the records show it. Please send your name and request details to Moses on WhatsApp."],
-["contact_moses",["contact","whatsapp","talk to moses","speak to someone","call","phone number","real person"],"No problem. Tap the green WhatsApp button below to reach Moses. It is best for serious or special cases."],
-["helsb_interest",["interest rate","helsb interest","interest on loan","how much interest"],"According to the HELSB FAQ, the interest rate on student loans is 10 percent amortized per year. Always read your loan agreement for the exact terms."],
-["helsb_covers",["what does helsb loan cover","loan cover","does the loan pay tuition","allowances"],"HELSB loans cater for tuition fees, accommodation fees, meal allowances, book allowances and project allowances."],
-["helsb_loan_or_scholarship",["loan and scholarship","both loan and scholarship","apply for both"],"You can apply for both a loan and a scholarship, but HELSB says an applicant cannot be awarded both."],
-["helsb_repay",["repay","repayment","pay back","when do i pay back"],"Students repay their loans one year after leaving school. The exact terms are in your loan agreement, so please read it carefully."],
-["helsb_certified",["certified","certify","certification","certified copies"],"HELSB asks applicants to make sure all documents are certified by the relevant authorities before they submit."],
-["intro",["who are you","introduce yourself","introduce","your name","what is your name","tell me about yourself","about you","are you moses","are you human","are you a robot","are you real","who is mr tees","what is mr tees","what are you","ask mr tees"],GREET+"! Thank you for reaching out to MR TEES. I am Ask MR TEES, also called Moses Ntembwa (MR TEES) AI, the digital assistant of Moses Ntembwa, a student at Kapasa Makasa University in Chinsali. I am an AI, not Moses himself. I help with university applications, HELSB, ECZ and ZAQA verification, scholarships and other education questions. What would you like to know?"],
-["trained",["who trained you","who made you","who created you","who built you","who owns you","who is your owner"],"I am an automated AI assistant for MR TEES Education Services. Moses Ntembwa, a student at Kapasa Makasa University in Chinsali, set me up and gave me information about HELSB, admissions and services. I am not Moses himself."],
-["link",["link","website","your site","send me your link"],"You are already on my page. To talk to Moses himself, tap the green WhatsApp button or message 0771043702."],
-["nursing",["nursing","nurse","midwifery","pharmacy","medicine","clinical","health sciences"],"Nursing and health programmes are offered at nursing schools and some universities. Entry rules and intake dates change every year, so I will not guess. Check the school’s official website, or the General Nursing Council for approved schools. Tell me the school you like and I will explain the usual steps."],
-["kmu",["kmu","chinsali","muchinga","where is kapasa makasa"],"Kapasa Makasa University (KMU) is in Chinsali District, Muchinga Province, Zambia."],
-["thanks",["thanks","thank you","thank","zikomo"],"You are most welcome! God bless you. Ask me anything else, any time."]
-];
 
-const HANDOFF=['lend me','borrow','loan me','give me money','send me money','assist me with','help me apply','apply for me','do my application','fill my application','refund','complain','pay for me'];
-const HANDOFF_REPLY="I understand you. That one needs a real person, not me. Please contact Moses on WhatsApp (0771043702) and explain your case, so he can look at it personally. I cannot lend money or handle applications by myself, but I can explain the steps and what you need.";
-const SERIOUS=['died','death','funeral','passed away','grieving','suicide','hungry','abused','desperate','depressed','homeless'];
-const SERIOUS_REPLY="I am sorry you are going through this. Take a deep breath, you are not alone. Please tell me a little more, and if it needs a real person, Moses can help you on WhatsApp.";
-const FALLBACK="To be honest, I don’t want to give you wrong information on this one. Please try asking in other words (for example about HELSB, admissions, TPIN, appeals, ZAQA, fees or scholarships), or ask Moses directly on WhatsApp.";
-const CLOSE=["God bless you.","Don’t give up.","You will make it, by God’s grace."];
+var $=function(i){return document.getElementById(i)};
+var hist=[],busy=false,sampleFn,sampleTried=false;
+try{hist=JSON.parse(localStorage.getItem(KEY)||"[]")}catch(e){hist=[]}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(hist.slice(-60)))}catch(e){}}
 
-// ===== PERSONALITY: how the AI talks =====
-const PERSONA=`You are ASK MR TEES, also called "Moses Ntembwa (MR TEES) AI": the digital assistant of Moses Ntembwa (MR TEES), founder of MR TEES Education Services in Zambia. Moses is a humble, God-fearing first-year student at Kapasa Makasa University (KMU) in Chinsali, Muchinga Province. You are NOT Moses and not a human. Say so honestly if asked.
-Purpose: help people understand university applications, HELSB loans, admission requirements, documents, deadlines, application errors, appeals, ECZ and ZAQA verification and other education opportunities in Zambia. You may also answer general questions.
-How to talk:
-- Simple, clear English. Short sentences, familiar words. Professional but friendly, like a helpful person, not a computer. Plain text only, no markdown or asterisks. Maximum 130 words.
-- Be humble, calm, patient, honest, encouraging. God-fearing in values, never forcing religion. Never make anyone feel stupid, even if they ask the same thing again.
-- Follow this order: understand the question, find the real problem, acknowledge their situation, give a clear answer, explain next steps, encourage. If someone is worried, first make them feel understood.
-- For procedures use numbered steps. Separate official requirements from your advice.
-- If the question is unclear, ask ONE simple follow-up question.
-- Light humour and friendly expressions are okay for normal topics. Never joke about suffering, money problems, family trouble or disability.
-- Vary your expressions, do not repeat the same one. Do not sound like a government office.
-- Principle: help people understand before asking them to take action.
-Customers and honesty:
-- Understand the service needed before talking about payment. Never pressure anyone to pay. Service charges pay for assistance, not for a guarantee.
-- Never promise admission, HELSB funding or a successful appeal.
-- Never invent deadlines, fees, requirements or announcements. If unsure or outdated, say so and advise the official institution.
-- If you do not know, say: "To be honest, I don’t want to give you wrong information. Let me refer this matter to Moses for further guidance."
-- Never pretend you checked someone’s application account. Never ask for passwords, PINs, OTPs or mobile-money codes.
-- Complicated cases, personal help with an application, money requests and complaints go to Moses on WhatsApp 0771043702.
-- If someone is grieving or in serious trouble, be gentle, no jokes, and suggest Moses on WhatsApp.
-Verified facts you must follow:
-${KB.map(k=>"- "+k[2]).join("\n")}`;
+// time of day
+function tod(){var h=new Date().getHours();return h<12?["Good morning","☀️"]:h<17?["Good afternoon","🌤️"]:["Good evening","🌙"]}
+var T=tod();(function(){var h=new Date().getHours();$("sky").className=(h>=6&&h<18)?"sun":"luna"})();
 
-function norm(t){return t.toLowerCase().replace(/[^a-z0-9'\s]/g,' ').replace(/\s+/g,' ').trim();}
-function lev(a,b){const m=[];for(let i=0;i<=a.length;i++){m[i]=[i];}for(let j=1;j<=b.length;j++)m[0][j]=j;for(let i=1;i<=a.length;i++)for(let j=1;j<=b.length;j++)m[i][j]=Math.min(m[i-1][j]+1,m[i][j-1]+1,m[i-1][j-1]+(a[i-1]===b[j-1]?0:1));return m[a.length][b.length];}
+var WAI='<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg>';
 
-function local(q){
-  const t=norm(q),toks=t.split(' ');let best=null,bs=0;
-  for(const [id,kws,ans] of KB){let s=0;
-    for(const k of kws){
-      if(k.includes(' ')){if((' '+t+' ').includes(' '+k+' '))s+=4;continue;}
-      for(const w of toks){if(w===k){s+=3;break;}
-        if(k.length>=5&&Math.abs(w.length-k.length)<=2&&lev(w,k)<=(k.length>=8?2:1)){s+=2;break;}}}
-    if(s>bs){bs=s;best=[id,ans];}}
-  if(best&&bs>=2){
-    const skip=['helsb_guarantee','helsb_interest','helsb_covers','helsb_repay','helsb_certified','contact_moses','password_safety','greeting','thanks','intro','trained','link','helsbcontact','married','aboutme','whomoses','canhelp'];
-    return best[1]+(skip.includes(best[0])?'':"\n\n"+CLOSE[Math.floor(Math.random()*CLOSE.length)]);
-  }
-  return FALLBACK;
-}
+function fmt(s){s=s.replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;");
+  return s.replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/(https?:\/\/[^\s<)]*[^\s<).,])/g,'<a href="$1" target="_blank" rel="noopener">$1</a>').replace(/\n/g,"<br>")}
+function waLink(){return "https://wa.me/"+WHATSAPP+"?text="+encodeURIComponent("Hello Moses, I was chatting with your AI assistant and I need help with ")}
+function bubble(role,text,wa){
+  var m=document.createElement("div");m.className="msg "+(role==="user"?"me":"bot");
+  m.innerHTML=(role==="user"?"":'<div class="av">MT</div>')+'<div class="bub"></div>';
+  $("msgs").appendChild(m);setBub(m,text,wa);return m}
+function setBub(m,text,wa){var b=m.querySelector(".bub");b.innerHTML=fmt(text)+(wa?'<br><a class="wa" href="'+waLink()+'" target="_blank" rel="noopener">'+WAI+'Chat with Moses on WhatsApp</a>':"");
+  $("msgs").scrollTop=$("msgs").scrollHeight}
+function split(t){var wa=/\[\[WA\]\]/.test(t);return{t:t.replace(/\[\[?W?A?\]?\]?\s*$/,"").replace(/\[\[WA\]\]/g,"").trim(),wa:wa}}
 
-const app=document.getElementById('app'),log=document.getElementById('log'),input=document.getElementById('msg');
-let history=[],sampleP=null,busy=false;
-function getSample(){if(!sampleP)sampleP=(window.claude&&claude.use?claude.use('sample'):Promise.resolve(null)).catch(()=>null);return sampleP;}
+function greet(back){
+  var d=document.createElement("div");d.className="day";d.textContent=T[1]+" "+T[0]+"!";$("msgs").appendChild(d);
+  var g=back?T[0]+" and welcome back! 😊 I remember our chat. What would you like to ask next?":
+   T[0]+"! 😊 Welcome to **MR TEES Education Services**. I am the AI assistant of Moses Ntembwa. I can explain university applications, HELSB, ECZ, ZAQA, CVs and more in simple English.\nHow can I help you today?";
+  bubble("bot",g)}
+function openChat(){$("msgs").innerHTML="";greet(hist.length>0);hist.forEach(function(h){var s=h.role==="assistant"?split(h.content):{t:h.content,wa:false};bubble(h.role,s.t,s.wa)});$("inp").focus()}
+$("clear").onclick=function(){hist=[];save();openChat()};
+$("send").onclick=function(){ask($("inp").value)};
+$("inp").addEventListener("keydown",function(e){if(e.key==="Enter")ask($("inp").value)});
 
-function waLink(q){const a=document.createElement('a');a.className='wa';a.target='_blank';a.rel='noopener';a.href=WA+"?text="+encodeURIComponent("Hello Moses, I need help: "+q);
-  a.innerHTML='<svg viewBox="0 0 24 24"><use href="#wa"/></svg>';a.append('Chat with Moses on WhatsApp');return a;}
-function add(text,who){const d=document.createElement('div');d.className='msg '+who;d.textContent=text;log.appendChild(d);log.scrollTop=log.scrollHeight;return d;}
-function finish(d,text,q){d.textContent=text;if(/whatsapp|moses|0771043702/i.test(text)||text===FALLBACK||text===SERIOUS_REPLY){d.append(document.createElement('br'),waLink(q));}log.scrollTop=log.scrollHeight;}
+async function getSample(){if(sampleTried)return sampleFn;sampleTried=true;
+  try{if(window.claude&&claude.use)sampleFn=await claude.use("sample")}catch(e){sampleFn=null}return sampleFn}
 
-async function ask(q){
-  if(busy)return;busy=true;
-  app.classList.add('chatting');add(q,'me');
-  const b=add('Thinking…','bot');
-  const t=norm(q);
-  try{
-    if(SERIOUS.some(w=>t.includes(w))){finish(b,SERIOUS_REPLY,q);history.push({role:'user',content:q},{role:'assistant',content:SERIOUS_REPLY});return;}
-    if(HANDOFF.some(w=>t.includes(w))){finish(b,HANDOFF_REPLY,q);return;}
-    const sample=await getSample();
-    if(!sample){finish(b,local(q),q);return;}
-    const msgs=[{role:'user',content:PERSONA+"\n\nThe time of day for the person is "+period+". Now continue this conversation as Moses Ntembwa (MR TEES) AI and answer the last message only."},{role:'assistant',content:'Okay, I understand.'},...history.slice(-6),{role:'user',content:q}];
-    const r=await sample(msgs,{cache:false,modelTier:'quick',onText:({text})=>{b.textContent=text;log.scrollTop=log.scrollHeight;}});
-    const ans=(r.text||'').trim()||local(q);
-    finish(b,ans,q);history.push({role:'user',content:q},{role:'assistant',content:ans});
-  }catch(e){
-    finish(b,local(q),q);
-  }finally{busy=false;}
-}
-document.getElementById('form').addEventListener('submit',e=>{e.preventDefault();const q=input.value.trim();if(q){input.value='';ask(q);}});
-document.querySelectorAll('#chips button').forEach(b=>b.onclick=()=>ask(b.textContent));
+async function ask(text){text=(text||"").trim();if(!text||busy)return;busy=true;$("inp").value="";
+  hist.push({role:"user",content:text});bubble("user",text);
+  var m=bubble("bot","Thinking…"),reply,wa=false,s=await getSample();
+  if(s){try{
+      var msgs=hist.slice(-20).map(function(h){return{role:h.role,content:h.content}});
+      if(msgs[0].role!=="user")msgs.shift();
+      msgs[0]={role:"user",content:KB+"\n\nThe time of day is: "+T[0]+". Conversation follows.\n\n"+msgs[0].content};
+      var r=await s(msgs,{cache:false,modelTier:"default",onText:function(o){var p=split(o.text);setBub(m,p.t||"Thinking…",false)}});
+      var p=split(r.text);reply=r.text;setBub(m,p.t,p.wa)
+    }catch(e){reply=null}}
+  if(!reply){hist.pop();setBub(m,"Sorry, I cannot answer right now. Please try again, or message Moses directly on WhatsApp.",true);busy=false;return}
+  hist.push({role:"assistant",content:reply});save();busy=false}
+
+openChat();
+// stars: bigger, slowly drifting like a night sky
+(function(){var c=$("stars"),x=c.getContext("2d"),S=[],still=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  function size(){c.width=innerWidth;c.height=innerHeight;S=[];for(var i=0;i<Math.min(90,c.width*c.height/11000);i++)S.push({x:Math.random()*c.width,y:Math.random()*c.height,r:Math.random()*1.5+.7,p:Math.random()*6.28,v:Math.random()*.1+.03})}
+  function draw(t){x.clearRect(0,0,c.width,c.height);S.forEach(function(s){
+    if(!still){s.x-=s.v;s.y+=s.v*.3;if(s.x<-3)s.x=c.width+3;if(s.y>c.height+3)s.y=-3}
+    x.globalAlpha=.55+.45*Math.sin(s.p+t*.0015);x.fillStyle="#fff";x.shadowColor="#fff";x.shadowBlur=s.r*3;x.beginPath();x.arc(s.x,s.y,s.r,0,6.28);x.fill()});
+    if(!still)requestAnimationFrame(draw)}
+  addEventListener("resize",function(){size();if(still)draw(0)});size();draw(0)})();
 </script>
 </body>
-</html>
+        </html>
