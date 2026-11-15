@@ -1,0 +1,3 @@
+<FilesMatch "^(config\.php|common\.php|unanswered\.json|knowledge\.json|persona\.txt)$">
+  Require all denied
+</FilesMatch>
