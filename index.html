@@ -1,184 +1,519 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Moses Ntembwa (MR TEES) AI</title>
+<title>Moses Ntembwa | Student Services Portal</title>
 <style>
-  :root { --g1:#0d4a2e; --g2:#116b3f; --g3:#1b8a52; --leaf:#2fa866; --white:#fff; --ink:#0b2e1c; --wa:#25d366; }
-  * { box-sizing:border-box; }
-  html,body { height:100%; margin:0; }
-  body {
-    font-family: "Segoe UI", "Trebuchet MS", sans-serif; color:var(--white);
-    background: radial-gradient(ellipse at 50% 0%, var(--g3) 0%, var(--g2) 40%, var(--g1) 100%);
-    background-attachment: fixed; overflow:hidden;
-  }
-  .garden { position:fixed; inset:0; pointer-events:none; z-index:0; }
-  .garden svg { position:absolute; overflow:visible; }
-  .tl { top:-10px; left:-10px; width:230px; } .tr { top:-10px; right:-10px; width:230px; transform:scaleX(-1); }
-  .bl { bottom:70px; left:-10px; width:200px; transform:scaleY(-1); } .br { bottom:70px; right:-10px; width:200px; transform:scale(-1,-1); }
-  .app { position:relative; z-index:1; height:100%; max-width:680px; margin:0 auto; display:flex; flex-direction:column; padding-top:env(safe-area-inset-top); }
-
-  .hero { flex:1; display:flex; flex-direction:column; justify-content:center; align-items:center; text-align:center; padding:24px 28px; }
-  .hero .wave { font-size:.95rem; letter-spacing:.02em; opacity:.9; margin-bottom:10px; }
-  .hero h1 { font-family: Georgia, "Palatino Linotype", serif; font-size:clamp(2.1rem, 8vw, 3.2rem); line-height:1.1; margin:0 0 14px; font-weight:700; }
-  .hero p { font-size:1.15rem; line-height:1.55; max-width:30ch; margin:0 0 18px; }
-  .chips { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; }
-  .chips button { background:#ffffff1f; color:var(--white); border:1px solid #ffffffaa; border-radius:20px; padding:8px 14px; font-size:.92rem; cursor:pointer; }
-  .chips button:hover { background:#ffffff38; }
-
-  .chatting .hero { display:none; }
-  .top { display:none; padding:12px 18px; }
-  .chatting .top { display:block; }
-  .top b { font-family:Georgia,serif; font-size:1.1rem; }
-  .top small { display:block; opacity:.85; }
-  #log { flex:1; overflow-y:auto; padding:8px 14px; display:none; flex-direction:column; gap:10px; }
-  .chatting #log { display:flex; }
-  .msg { max-width:86%; padding:11px 15px; border-radius:18px; line-height:1.5; white-space:pre-wrap; font-size:1rem; }
-  .bot { background:var(--white); color:var(--ink); align-self:flex-start; border-bottom-left-radius:4px; }
-  .me  { background:var(--g1); color:var(--white); border:1px solid #ffffff66; align-self:flex-end; border-bottom-right-radius:4px; }
-  .wa { display:inline-block; margin-top:8px; background:var(--wa); color:#fff; padding:8px 14px; border-radius:20px; text-decoration:none; font-weight:700; font-size:.9rem; }
-
-  form { display:flex; gap:8px; padding:12px 14px calc(12px + env(safe-area-inset-bottom)); }
-  input { flex:1; padding:14px 16px; border-radius:24px; border:none; font-size:1rem; }
-  form button { background:var(--white); color:var(--g1); border:none; border-radius:24px; padding:0 22px; font-weight:700; font-size:1rem; cursor:pointer; }
-  input:focus-visible, button:focus-visible { outline:3px solid #ffe27a; }
-  @media (max-width:480px){ .tl,.tr{width:150px} .bl,.br{width:130px} }
-  @media (prefers-reduced-motion:no-preference){ .hero h1{animation:rise .8s ease-out both} @keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}} }
+:root{--bl:#1a47c8;--w:#fff;--k:#0a0a0a;--r:#d6232a}
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif}
+body{background:radial-gradient(900px 500px at 85% -5%,rgba(255,255,255,.22),transparent 60%),radial-gradient(800px 500px at -10% 45%,rgba(0,0,0,.4),transparent 60%),linear-gradient(160deg,#2c5fe0 0%,#1a47c8 45%,#0b2688 100%);background-attachment:fixed;color:var(--w);min-height:100vh;overflow-x:hidden}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:46px 46px;-webkit-mask-image:linear-gradient(180deg,#000 0%,transparent 85%);mask-image:linear-gradient(180deg,#000 0%,transparent 85%)}
+body::after{content:"";position:fixed;width:520px;height:520px;right:-200px;bottom:-200px;border-radius:50%;border:60px solid rgba(255,255,255,.07);z-index:0;pointer-events:none;animation:spin 60s linear infinite}
+a{color:inherit;font-weight:700}
+#sky{position:fixed;inset:0;z-index:0;pointer-events:none}
+.s{position:absolute;background:#fff;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:tw 3s infinite}
+@keyframes tw{0%,100%{opacity:.12;transform:scale(.5)}50%{opacity:1;transform:scale(1)}}
+header{position:sticky;top:0;z-index:30;background:var(--k);padding:10px 16px;padding-top:calc(10px + env(safe-area-inset-top,0px));display:flex;align-items:center;justify-content:space-between;gap:10px;flex-wrap:wrap;border-bottom:3px solid var(--r);box-shadow:0 4px 18px rgba(0,0,0,.4)}
+.brand{font-weight:900;letter-spacing:3px;font-size:15px;cursor:pointer;display:flex;align-items:center;gap:8px}
+.brand i{width:14px;height:14px;background:#fff;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%);animation:spin 8s linear infinite}
+nav{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font-size:12px}
+nav a{text-decoration:none;padding:7px 10px;border:1px solid #fff;border-radius:8px}
+nav a:hover,.nb:hover{background:#fff;color:#000}
+.nb{background:none;color:#fff;border:1px solid #fff;border-radius:8px;padding:7px 10px;cursor:pointer;font-weight:700}
+.who{font-weight:700}.tm{font-variant-numeric:tabular-nums;opacity:.85}
+.ticker{background:#fff;color:#000;overflow:hidden;white-space:nowrap;font-size:11px;font-weight:800;letter-spacing:2px;padding:8px 0;position:relative;z-index:2}
+.track{display:inline-block;animation:sc 45s linear infinite}
+.ticker.rev .track{animation-direction:reverse;animation-duration:55s}
+.ticker i{display:inline-block;width:6px;height:6px;background:#000;margin:0 20px;transform:rotate(45deg)}
+.ticker.k{background:var(--r);color:#fff}.ticker.k i{background:#fff}
+@keyframes sc{to{transform:translateX(-50%)}}
+@keyframes spin{to{transform:rotate(360deg)}}
+@keyframes fi{from{opacity:0;transform:translateY(16px)}}
+main{position:relative;z-index:1;max-width:980px;margin:0 auto;padding:18px 14px 70px}
+.page{animation:fi .5s both}
+.hero{text-align:center;padding:46px 8px 30px;position:relative;overflow:hidden}
+.hero h1{font-size:clamp(28px,7vw,50px);letter-spacing:2px;line-height:1.15;position:relative}
+.hero p{max-width:560px;margin:14px auto 22px;line-height:1.6;opacity:.95;position:relative}
+.rw{display:inline-block;background:var(--r);color:#fff;padding:0 12px;border-radius:8px;animation:fi .6s both}
+.ring{position:absolute;border:2px dashed rgba(255,255,255,.4);border-radius:50%;animation:spin 40s linear infinite}
+.ring.a{width:260px;height:260px;left:-90px;top:-60px}.ring.b{width:180px;height:180px;right:-50px;bottom:-40px;animation-direction:reverse}
+.sq{position:absolute;width:30px;height:30px;border:2px solid #fff;opacity:.5;animation:fl 6s ease-in-out infinite}
+@keyframes fl{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-18px) rotate(45deg)}}
+.card{background:#fff;color:#000;border:2px solid #000;border-radius:16px;padding:18px;margin-top:16px;box-shadow:0 10px 30px rgba(0,0,0,.35)}
+.card.narrow{max-width:460px;margin:22px auto}
+.card h2{font-size:20px;margin-bottom:4px}.card h3{font-size:15px;margin-bottom:8px;letter-spacing:.5px}
+.sub{font-size:13px;line-height:1.5;opacity:.75;margin-bottom:12px}
+.dark{background:#000;color:#fff;border-color:#fff}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:12px;margin-top:10px}
+.tile{border:2px solid #000;border-radius:12px;padding:12px;position:relative;overflow:hidden}
+.dark .tile{border-color:#fff}
+.tile b{display:block;font-size:14px}.tile span{font-size:12px;opacity:.75}
+.tile .pr{float:right;background:#000;color:#fff;border-radius:20px;padding:3px 10px;font-weight:800;font-size:13px}
+.num{font-size:30px;font-weight:900}
+.btn{background:#000;color:#fff;border:2px solid #000;border-radius:10px;padding:11px 18px;font-weight:800;cursor:pointer;font-size:14px;margin:4px 4px 0 0;text-decoration:none;display:inline-block}
+.btn.w{background:#fff;color:#000}.hero .btn{border-color:#fff}.hero .btn.w{border-color:#fff}
+.btn:active{transform:scale(.96)}
+.lbl{font-size:11px;font-weight:800;letter-spacing:1.5px;display:block}
+.in{width:100%;padding:12px;border:2px solid #000;border-radius:10px;font-size:15px;margin:6px 0 12px;background:#fff;color:#000}
+.in:focus{outline:3px solid rgba(26,71,200,.5)}.in.sm{padding:6px;font-size:12px;margin:0 0 6px}
+.badge{display:inline-block;padding:4px 10px;border:2px solid #000;border-radius:20px;font-size:11px;font-weight:800;letter-spacing:1px;text-transform:uppercase;background:#fff;color:#000}
+.badge.on{background:#000;color:#fff;border-color:#fff}
+.msg{border:2px solid #000;border-left:10px solid #000;padding:10px 12px;border-radius:8px;margin:10px 0;font-size:13px;line-height:1.5;background:#fff;color:#000}
+.bar{height:10px;border:2px solid #000;border-radius:6px;overflow:hidden}.bar i{display:block;height:100%;background:#000;width:0;transition:.3s}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
+.scroll{overflow-x:auto}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:520px}
+th,td{padding:8px;border-bottom:1px solid #000;text-align:left;vertical-align:top}
+th{background:#000;color:#fff;font-size:11px;letter-spacing:1px}
+.prog{display:flex;gap:6px;margin:14px 0 4px}
+.prog div{flex:1;text-align:center;font-size:11px;font-weight:700}
+.prog div::before{content:"";display:block;height:8px;border:2px solid #000;border-radius:6px;margin-bottom:6px}
+.prog div.d::before{background:#000}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:14px 0 0}
+.tabs button{background:#000;color:#fff;border:2px solid #fff;border-radius:10px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:13px}
+.tabs button.on{background:#fff;color:#000}
+.chk{display:flex;gap:10px;align-items:center;border:2px solid #000;border-radius:10px;padding:10px;margin-top:8px;cursor:pointer}
+.chk input{width:18px;height:18px;accent-color:#000}.chk span{flex:1;font-size:14px;font-weight:600}
+ol.l{margin:8px 0 0 20px;line-height:1.8;font-size:14px}
+#inbox{position:fixed;left:12px;right:90px;bottom:12px;max-width:380px;background:#000;color:#fff;border:2px solid #fff;border-radius:14px;padding:12px;z-index:90;display:none;font-size:13px}
+#inbox .ih{display:flex;justify-content:space-between;align-items:center;margin-bottom:4px}
+#inbox button{background:#fff;color:#000;border:none;border-radius:8px;padding:4px 10px;font-weight:700;cursor:pointer}
+#inbox .im{border-top:1px solid rgba(255,255,255,.4);padding:8px 0;line-height:1.5}
+#toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#000;color:#fff;border:2px solid #fff;border-radius:30px;padding:10px 18px;font-size:13px;display:none;z-index:99;max-width:90%;text-align:center}
+footer{position:relative;z-index:1;text-align:center;padding:20px;font-size:12px;opacity:.85}
+.card{border-top:5px solid var(--r)}
+.card h2::after{content:"";display:block;width:38px;height:4px;background:var(--r);margin-top:6px;border-radius:2px}
+.hero h1{text-shadow:0 4px 24px rgba(0,0,0,.35)}
+.tile{transition:.25s}.tile:hover{transform:translateY(-4px);box-shadow:0 8px 18px rgba(0,0,0,.25)}
+.badge.red{background:var(--r);color:#fff;border-color:var(--r)}
+.btn.r{background:var(--r);border-color:var(--r);color:#fff}.hero .btn.r{border-color:#fff}
+textarea.in{resize:vertical;min-height:90px}
+.post{border:2px solid #000;border-left:8px solid #000;border-radius:12px;padding:12px;margin-top:10px;background:#fff}
+.post.notice{border-left-color:var(--r)}
+.post .row{justify-content:flex-start}.post small{margin-left:auto;opacity:.7}
+.alert{background:var(--r);color:#fff;border:2px solid #fff;border-radius:12px;padding:10px 14px;display:flex;gap:12px;align-items:center;margin-top:14px;font-size:14px;box-shadow:0 8px 22px rgba(0,0,0,.35)}
+.alert b{letter-spacing:1px;font-size:12px;white-space:nowrap;background:#000;padding:4px 10px;border-radius:20px}
+.mq{flex:1;overflow:hidden;white-space:nowrap}.mq .track{animation-duration:22s}
+.wa{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));width:64px;height:64px;z-index:80;border-radius:50%;box-shadow:0 8px 22px rgba(0,0,0,.45);display:block;animation:bob 2.4s ease-in-out infinite}
+.wa svg{width:100%;height:100%;display:block}
+.wa::before{content:"";position:absolute;inset:0;border-radius:50%;border:3px solid #25d366;animation:rp 2s infinite}
+.wa .wl{position:absolute;right:74px;top:50%;transform:translateY(-50%);background:#000;color:#fff;border:2px solid #fff;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:800;white-space:nowrap;animation:fi .6s both}
+@keyframes rp{0%{transform:scale(1);opacity:.9}100%{transform:scale(1.7);opacity:0}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+/* ---- Comfortable typing and clicking ---- */
+body{font-size:17px;line-height:1.5}
+.card.narrow{max-width:540px;padding:24px 20px}
+.card h2{font-size:24px}
+.lbl{font-size:13px;letter-spacing:1px;margin-top:4px}
+.in{padding:16px;font-size:18px;min-height:58px;margin:8px 0 18px;border-radius:12px}
+.in:focus{outline:4px solid rgba(214,35,42,.45);border-color:#000}
+select.in{padding-right:10px}
+.btn{min-height:56px;font-size:17px;padding:14px 24px;border-radius:12px;margin:6px 6px 0 0}
+.card.narrow .btn,.paybtn,.card.narrow .paybtn{width:100%;margin-right:0}
+td .btn{min-height:46px;padding:10px 14px;font-size:15px;margin:4px 4px 0 0;width:auto}
+.paybtn{min-height:58px}
+nav{gap:8px}
+nav a,.nb{padding:11px 15px;font-size:15px;min-height:46px;display:inline-flex;align-items:center}
+.who{font-size:15px}.tm{font-size:13px}
+.tabs button{min-height:50px;font-size:15px;padding:10px 16px}
+.chk{padding:16px;gap:14px}.chk input{width:26px;height:26px}.chk span{font-size:16px}
+table{font-size:14px}th,td{padding:10px 8px}
+.badge{font-size:12px;padding:5px 12px}
+.msg{font-size:15px;padding:14px}
+.sub{font-size:15px}
+.pw{position:relative}
+.pw .in{padding-right:96px}
+.eye{position:absolute;right:8px;top:14px;height:44px;min-width:76px;border:2px solid #000;background:#000;color:#fff;border-radius:10px;font-weight:800;font-size:14px;cursor:pointer}
+.eye:active{transform:scale(.95)}
+.hint{font-size:14px;line-height:1.5;border-left:6px solid var(--r);padding:8px 12px;margin:0 0 16px;background:rgba(0,0,0,.05);border-radius:6px}
+#toast{font-size:15px;padding:13px 22px}
+#inbox{font-size:15px}
+.hl{display:flex;align-items:center;gap:12px}
+.menu{width:52px;height:52px;border:2px solid #fff;border-radius:12px;background:none;cursor:pointer;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:6px;flex-shrink:0}
+.menu span{display:block;width:26px;height:3px;background:#fff;border-radius:2px;transition:.3s}
+.menu:hover,.menu:active{background:var(--r);border-color:var(--r)}
+#ov{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;display:none}
+#dr{position:fixed;top:0;left:0;bottom:0;width:86%;max-width:340px;background:#000;color:#fff;z-index:160;transform:translateX(-105%);transition:transform .35s;border-right:3px solid var(--r);overflow-y:auto;padding:16px;padding-top:calc(16px + env(safe-area-inset-top,0px))}
+#dr.open{transform:none}
+#dr .dh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+#dr .dh button{width:48px;height:48px;border:2px solid #fff;background:none;color:#fff;border-radius:12px;font-size:26px;cursor:pointer}
+#dr .mi{display:flex;align-items:center;gap:14px;width:100%;text-align:left;background:none;border:0;border-bottom:1px solid rgba(255,255,255,.22);color:#fff;font-size:18px;font-weight:700;padding:16px 10px;min-height:60px;cursor:pointer}
+#dr .mi::before{content:"";width:10px;height:10px;background:var(--r);transform:rotate(45deg);flex-shrink:0}
+#dr .mi:hover,#dr .mi:active{background:var(--r)}#dr .mi:hover::before{background:#fff}
+#dr .grp{font-size:11px;letter-spacing:2px;opacity:.7;margin:20px 0 4px}
+.lg{display:grid;grid-template-columns:1fr 1.15fr;max-width:920px;margin:22px auto;border-radius:22px;overflow:hidden;border:2px solid #fff;box-shadow:0 22px 55px rgba(0,0,0,.5);background:#fff;color:#000}
+.lgside{background:linear-gradient(160deg,#000,#0a1f66);color:#fff;padding:32px 26px;position:relative;overflow:hidden}
+.lgside::after{content:"";position:absolute;width:240px;height:240px;border:30px solid rgba(255,255,255,.07);border-radius:50%;right:-90px;bottom:-90px}
+.lg.adm .lgside{background:linear-gradient(160deg,var(--r),#6e0c11)}
+.lgside svg{width:68px;height:68px;display:block}
+.lgside h2{margin:14px 0 8px;font-size:26px}.lgside h2::after{display:none}
+.lgside p{font-size:15px;line-height:1.6;opacity:.92}
+.lgside ul{list-style:none;margin-top:16px}
+.lgside li{padding:9px 0 9px 26px;position:relative;font-size:15px}
+.lgside li::before{content:"";position:absolute;left:0;top:14px;width:12px;height:12px;background:#fff;clip-path:polygon(50% 0,61% 35%,98% 35%,68% 57%,79% 91%,50% 70%,21% 91%,32% 57%,2% 35%,39% 35%)}
+.mq2{overflow:hidden;white-space:nowrap;margin-top:16px;border-top:1px solid rgba(255,255,255,.45);border-bottom:1px solid rgba(255,255,255,.45);padding:9px 0;font-size:12px;font-weight:800;letter-spacing:2px}
+.mq2 i{display:inline-block;width:6px;height:6px;background:#fff;margin:0 16px;transform:rotate(45deg)}
+.lgform{padding:30px 24px}.lgform h2::after{width:38px}
+.lg.adm .lgform{background:#0a0a0a;color:#fff}
+.lg.adm .in{border-color:#fff}.lg.adm .hint{background:rgba(255,255,255,.1)}
+.lg.adm .eye{background:var(--r);border-color:var(--r)}.lg.adm .sub,.lg.adm a{color:#fff}
+@media(max-width:760px){.lg{grid-template-columns:1fr}.lgside{padding:22px}.lgside ul{display:none}.lgside p{display:none}}
+.pt{display:block;text-decoration:none;background:#fff;color:#000;padding:22px;border:2px solid #000;border-top:5px solid var(--r);border-radius:16px;min-height:150px}
+.pt b{font-size:21px;display:block}.pt span{display:block;margin-top:6px;font-size:15px;line-height:1.5;opacity:.85}
+.pt em{display:inline-block;margin-top:14px;font-style:normal;font-weight:800;background:#000;color:#fff;padding:12px 18px;border-radius:30px;font-size:15px}
+.pt.adm{background:#000;color:#fff;border-color:#fff;border-top-color:var(--r)}.pt.adm em{background:var(--r)}
 </style>
 </head>
 <body>
-
-<svg width="0" height="0" style="position:absolute" aria-hidden="true">
-  <defs>
-    <symbol id="flower" viewBox="-50 -50 100 100">
-      <g fill="currentColor" stroke="#0d4a2e22" stroke-width="1">
-        <ellipse cx="0" cy="-26" rx="13" ry="24"/>
-        <ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(60)"/>
-        <ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(120)"/>
-        <ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(180)"/>
-        <ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(240)"/>
-        <ellipse cx="0" cy="-26" rx="13" ry="24" transform="rotate(300)"/>
-      </g>
-      <circle r="11" fill="#ffd54a"/><circle r="5" fill="#f59e0b"/>
-    </symbol>
-    <symbol id="leaf" viewBox="0 0 60 30"><path d="M2 15 Q30 -8 58 15 Q30 38 2 15Z" fill="currentColor"/><path d="M6 15 H54" stroke="#0d4a2e55" stroke-width="1.5"/></symbol>
-  </defs>
-</svg>
-
-<div class="garden" aria-hidden="true">
-  <svg class="tl" viewBox="0 0 230 230">
-    <path d="M0 30 Q90 40 150 110 T220 220" stroke="#2fa866" stroke-width="5" fill="none"/>
-    <use href="#leaf" x="40" y="22" width="44" height="22" style="color:#2fa866" transform="rotate(20 62 33)"/>
-    <use href="#leaf" x="100" y="80" width="44" height="22" style="color:#3cc47a" transform="rotate(50 122 91)"/>
-    <use href="#flower" x="10" y="10" width="76" height="76" style="color:#ffc6dd"/>
-    <use href="#flower" x="105" y="60" width="58" height="58" style="color:#ffffff"/>
-    <use href="#flower" x="150" y="140" width="44" height="44" style="color:#ffb3c7"/>
-    <use href="#flower" x="20" y="100" width="40" height="40" style="color:#ffe9a8"/>
-  </svg>
-  <svg class="tr" viewBox="0 0 230 230">
-    <path d="M0 30 Q90 40 150 110 T220 220" stroke="#2fa866" stroke-width="5" fill="none"/>
-    <use href="#leaf" x="40" y="22" width="44" height="22" style="color:#2fa866" transform="rotate(20 62 33)"/>
-    <use href="#flower" x="10" y="10" width="68" height="68" style="color:#fff3b0"/>
-    <use href="#flower" x="105" y="60" width="52" height="52" style="color:#ffc6dd"/>
-    <use href="#flower" x="150" y="140" width="40" height="40" style="color:#ffffff"/>
-  </svg>
-  <svg class="bl" viewBox="0 0 230 230">
-    <path d="M0 30 Q90 40 150 110 T220 220" stroke="#2fa866" stroke-width="5" fill="none"/>
-    <use href="#leaf" x="100" y="80" width="44" height="22" style="color:#3cc47a" transform="rotate(50 122 91)"/>
-    <use href="#flower" x="10" y="10" width="70" height="70" style="color:#ffffff"/>
-    <use href="#flower" x="105" y="60" width="50" height="50" style="color:#ffb3c7"/>
-  </svg>
-  <svg class="br" viewBox="0 0 230 230">
-    <path d="M0 30 Q90 40 150 110 T220 220" stroke="#2fa866" stroke-width="5" fill="none"/>
-    <use href="#leaf" x="40" y="22" width="44" height="22" style="color:#2fa866" transform="rotate(20 62 33)"/>
-    <use href="#flower" x="10" y="10" width="64" height="64" style="color:#ffc6dd"/>
-    <use href="#flower" x="100" y="64" width="46" height="46" style="color:#fff3b0"/>
-  </svg>
-</div>
-
-<div class="app" id="app">
-  <div class="top"><b>Moses Ntembwa (MR TEES) AI</b><small>Automated assistant · MR TEES Education Services</small></div>
-
-  <section class="hero">
-    <div class="wave" id="period">Welcome</div>
-    <h1 id="welcomeTitle">Good morning</h1>
-    <p id="welcomeText">I am Moses Ntembwa (MR TEES) AI. I am here to assist you. Ask anything that you want to know.</p>
-    <div class="chips" id="chips">
-      <button>How do I apply for HELSB?</button>
-      <button>What is TPIN?</button>
-      <button>How do I apply to university?</button>
-      <button>What is an appeal?</button>
-    </div>
-  </section>
-
-  <div id="log" aria-live="polite"></div>
-
-  <form id="form">
-    <input id="msg" autocomplete="off" placeholder="Type your question here…" aria-label="Your question">
-    <button type="submit">Ask</button>
-  </form>
-</div>
+<div id="sky"></div>
+<header>
+  <div class="hl"><button class="menu" onclick="openMenu()" aria-label="Open menu"><span></span><span></span><span></span></button><div class="brand" onclick="go('#home')"><i></i>MOSES NTEMBWA</div></div>
+  <nav id="nav"></nav>
+</header>
+<div id="ov" onclick="closeMenu()"></div>
+<aside id="dr" aria-label="Website menu"></aside>
+<div class="ticker"><div class="track" id="t1"></div></div>
+<div class="ticker k rev"><div class="track" id="t2"></div></div>
+<main id="app"></main>
+<footer>Moses Ntembwa &middot; Education and Digital Support, Zambia &middot; <a href="https://wa.me/260771043702" target="_blank" rel="noopener">WhatsApp 0771043702</a> &middot; <a href="#admin-login">Staff login</a></footer>
+<div id="inbox"></div>
+<div id="toast"></div>
+<a class="wa" href="https://wa.me/260771043702?text=Hello%20Moses%20Ntembwa%2C%20I%20need%20help." target="_blank" rel="noopener" aria-label="Chat with Moses Ntembwa on WhatsApp"><span class="wl">Chat with us</span><svg viewBox="0 0 32 32"><circle cx="16" cy="16" r="16" fill="#25D366"/><path fill="#fff" d="M16 6.2a9.7 9.7 0 0 0-8.4 14.6L6.2 25.8l5.1-1.3A9.7 9.7 0 1 0 16 6.2z"/><path fill="#25D366" d="M12.3 11.2c.3-.3.8-.3 1 .1l.9 1.9c.1.3 0 .6-.2.8l-.5.6c.8 1.6 2.1 2.8 3.7 3.6l.6-.7c.2-.2.5-.3.8-.2l1.8.9c.4.2.5.6.3 1-.5 1.1-1.6 1.7-2.7 1.4-3.2-.9-5.6-3.2-6.5-6.4-.3-1 .1-2 .8-3z"/></svg></a>
 
 <script>
-const WHATSAPP = "260771043702";   // Moses's number, no + or spaces
+const IDLE=600000;
+const SV=[["HELSB Application",50],["HELSB Appeal",30],["HELSB Returning Student",50],["Scholarship Application",100],["University Admission",50],["ECZ Results Verification",40],["ZAQA Certificate Verification",40],["ZRA TPIN Certificate",30],["CV Writing",50],["Application Letter",20],["Past Papers with Solutions",30],["Pamphlets",30]];
+const ST={unpaid:'Payment required',awaiting:'Awaiting confirmation',active:'Active',suspended:'Suspended'};
+let DB,S=null,tab='overview',pendReg=null,inboxMsgs=[],fStep=1,fEmail='',flash='';
+const $=s=>document.querySelector(s);
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const fmt=t=>new Date(t).toLocaleString();
+const rid=()=>'u'+Math.random().toString(36).slice(2,9);
+async function H(p){const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode('mn|'+p));return[...new Uint8Array(b)].map(x=>x.toString(16).padStart(2,'0')).join('')}
+function load(){try{return JSON.parse(localStorage.getItem('mnDemoDB'))}catch(e){return null}}
+function save(){try{localStorage.setItem('mnDemoDB',JSON.stringify(DB))}catch(e){}}
+function ss(){try{sessionStorage.setItem('mnS',JSON.stringify(S))}catch(e){}}
+const me=()=>S?DB.users.find(u=>u.id===S.uid)||null:null;
+const isAdmin=()=>{const u=me();return !!u&&u.role==='admin'};
+function toast(t){const e=$('#toast');e.textContent=t;e.style.display='block';clearTimeout(e._t);e._t=setTimeout(()=>e.style.display='none',3000)}
+function log(a,w){DB.audit.unshift({t:Date.now(),w:w||(me()?me().email:'visitor'),a});if(DB.audit.length>100)DB.audit.length=100;save()}
+function note(x){DB.notes.unshift({t:Date.now(),x,r:false});if(DB.notes.length>50)DB.notes.length=50;save()}
+function inbox(x){inboxMsgs.unshift({x});drawInbox()}
+function drawInbox(){const b=$('#inbox');if(!inboxMsgs.length){b.style.display='none';return}b.style.display='block';b.innerHTML='<div class="ih"><b>DEMO INBOX</b><button onclick="inboxMsgs=[];drawInbox()">Close</button></div><small>Messages a live website would send by email or SMS.</small>'+inboxMsgs.slice(0,3).map(m=>'<div class="im">'+esc(m.x)+'</div>').join('')}
+const lockLeft=k=>{const t=DB.tries[k];return t&&t.until>Date.now()?Math.ceil((t.until-Date.now())/1000):0};
+function failTry(k){const t=DB.tries[k]||(DB.tries[k]={n:0,until:0});t.n++;let left=5-t.n;if(t.n>=5){t.until=Date.now()+120000;t.n=0;left=0}save();return left}
+function stars(el,n){for(let i=0;i<n;i++){const s=document.createElement('div');s.className='s';const z=3+Math.random()*7;s.style.cssText='left:'+Math.random()*98+'%;top:'+Math.random()*96+'%;width:'+z+'px;height:'+z+'px;animation-delay:'+Math.random()*3+'s';el.appendChild(s)}}
+function go(h){if(location.hash===h)render();else location.hash=h}
 
-// Morning, afternoon or evening, from the person's own phone clock
-function getPeriod() {
-  const h = new Date().getHours();
-  if (h < 12) return 'morning';
-  if (h < 17) return 'afternoon';
-  return 'evening';
+async function init(){
+  DB=load()||{users:[],pays:[],reqs:[],notes:[],audit:[],tries:{},resets:{},set:{otp:false}};
+  DB.posts=DB.posts||[];DB.docs=DB.docs||[];DB.set=DB.set||{otp:false};
+  if(!DB.seeded){const n=Date.now();DB.posts.push({id:'s1',type:'Notice',title:'Registration and account activation',body:'Students must register and activate their account with the K20 fee before requesting services. Payments are confirmed by the administrator after the transaction ID is checked.',imp:true,t:n,by:'system'},{id:'s2',type:'News',title:'Customer appreciation offer',body:'Buy any 6 services and receive the remaining 6 free. Valid for two months from activation.',imp:false,t:n-1000,by:'system'},{id:'s3',type:'Update',title:'New student portal is live',body:'Register, pay, track your service requests and read official announcements from one secure place.',imp:false,t:n-2000,by:'system'});DB.seeded=1;save()}
+  if(!DB.users.some(u=>u.role==='admin')){DB.users.push({id:'a1',role:'admin',name:'Administrator',email:'admin@mosesntembwa.demo',ph:await H('Admin@2026'),pin:await H('2468'),status:'active',t:Date.now()});save()}
+  try{const s=JSON.parse(sessionStorage.getItem('mnS'));if(s&&s.exp>Date.now())S=s}catch(e){}
+  const w=['REGISTER','PAY K20','SUBMIT TRANSACTION ID','ADMIN CONFIRMS','ACCOUNT ACTIVATED','REQUEST SERVICES','HELSB','SCHOLARSHIPS','UNIVERSITY ADMISSION','ZRA TPIN','CV WRITING'];
+  const w2=['SECURE LOGIN','ROLE BASED ACCESS','SESSION PROTECTION','PASSWORD RECOVERY','ADMIN VERIFICATION','HONEST','PROFESSIONAL','ON TIME'];
+  const mk=a=>(a.join('<i></i>')+'<i></i>').repeat(2);
+  $('#t1').innerHTML=mk(w);$('#t2').innerHTML=mk(w2);
+  stars($('#sky'),70);
+  addEventListener('hashchange',()=>{render();scrollTo(0,0)});
+  ['click','keydown','touchstart'].forEach(e=>addEventListener(e,()=>{if(S){S.exp=Date.now()+IDLE;ss()}},{passive:true}));
+  setInterval(tick,1000);
+  const words=['Register','Pay','Verify','Activate'];let wi=0;
+  setInterval(()=>{const e=$('#rw');if(e){wi=(wi+1)%4;e.style.animation='none';void e.offsetWidth;e.style.animation='';e.textContent=words[wi]}},2200);
+  render();
 }
-const period = getPeriod();
-const label = { morning:'Good morning', afternoon:'Good afternoon', evening:'Good evening' }[period];
-document.getElementById('welcomeTitle').textContent = label;
-document.getElementById('period').textContent = { morning:'☀️ Morning', afternoon:'🌤️ Afternoon', evening:'🌙 Evening' }[period];
-document.getElementById('welcomeText').textContent = 'I am Moses Ntembwa (MR TEES) AI. I am here to assist you. Ask anything that you want to know.';
+function tick(){
+  if(S&&Date.now()>S.exp){logout('Your session expired after 10 minutes of inactivity. Please log in again.');return}
+  const t=$('#tm');if(t&&S){const r=Math.max(0,S.exp-Date.now());t.textContent='Session '+Math.floor(r/60000)+':'+String(Math.floor(r%60000/1000)).padStart(2,'0')}
+}
+function logout(m){const wasAdmin=isAdmin();if(me())log('Logged out');S=null;try{sessionStorage.removeItem('mnS')}catch(e){}flash=m||'You have been logged out securely.';go(wasAdmin?'#admin-login':'#student-login')}
+function head(){
+  const u=me(),n=DB.notes.filter(x=>!x.r).length;
+  $('#nav').innerHTML=u?'<span class="who">'+esc(u.name)+'</span><span class="badge on">'+u.role+'</span>'+(u.role==='admin'?'<span class="badge">'+n+' new</span>':'')+'<span class="tm" id="tm"></span><button class="nb" onclick="logout()">Log out</button>'
+  :'<a href="#register">Register</a><a href="#student-login">Student login</a>';
+  tick();drawMenu();
+}
 
-const app = document.getElementById('app');
-const log = document.getElementById('log');
-const input = document.getElementById('msg');
-let lastQ = ''; const history = [];
+/* ---------- ROUTER WITH ROLE GUARDS ---------- */
+function render(){
+  const h=location.hash||'#home',u=me();let pg;
+  if(h.startsWith('#admin')&&h!=='#admin-login'){
+    if(!u)return go('#admin-login');
+    if(u.role!=='admin'){log('BLOCKED: student attempted to open the administrator area',u.email);pg=denied()}
+    else pg=adminPg()
+  }else if(h==='#dashboard'){
+    if(!u)return go('#student-login');if(u.role==='admin')return go('#admin');pg=studentPg(u)
+  }else if(h==='#register')pg=regPg();
+  else if(h==='#student-login')pg=loginPg('student');
+  else if(h==='#admin-login')pg=loginPg('admin');
+  else if(h==='#forgot')pg=forgotPg();
+  else pg=homePg();
+  $('#app').innerHTML='<div class="page">'+pg+'</div>';
+  head();
+  document.querySelectorAll('#app input[type=email],#app input[type=tel]').forEach(i=>{i.setAttribute('autocapitalize','none');i.setAttribute('autocorrect','off');i.spellcheck=false});
+  if(['#student-login','#admin-login','#register','#forgot'].includes(h)){const f=$('#app input.in');if(f)setTimeout(()=>f.focus(),150)}
+  const hr=$('.hero');if(hr)stars(hr,26);
+}
+function denied(){return '<div class="card narrow"><h2>Access denied</h2><div class="msg">Your account role is <b>student</b>. Administrator pages are not available to you. This attempt has been recorded in the security log.</div><a class="btn" href="#dashboard">Back to my account</a></div>'}
 
-function add(text, who, showWA) {
-  const d = document.createElement('div');
-  d.className = 'msg ' + who;
-  d.textContent = text;
-  if (showWA) {
-    const a = document.createElement('a');
-    a.className = 'wa'; a.target = '_blank'; a.rel = 'noopener';
-    a.href = 'https://wa.me/' + WHATSAPP + '?text=' + encodeURIComponent('Hello Moses, I need help: ' + lastQ);
-    a.textContent = 'Chat with Moses on WhatsApp';
-    d.append(document.createElement('br'), a);
+/* ---------- HOME ---------- */
+function homePg(){
+  return `<section class="hero"><div class="ring a"></div><div class="ring b"></div><div class="sq" style="left:12%;top:20%"></div><div class="sq" style="right:14%;top:30%;animation-delay:-2s"></div>
+  <h1>Student services made simple.<br><span class="rw" id="rw">Register</span></h1>
+  <p>A secure portal for HELSB applications, scholarships, university admissions, verification, ZRA TPIN, CV writing and study materials. Create an account, confirm your payment and request services online.</p>
+  <a class="btn r" href="#register">Create account</a><a class="btn" href="#student-login">Student login</a></section>${impBanner()}${portals()}${postsCard(6)}
+  <div class="card dark" id="sec-how"><h2>How it works</h2><div class="grid">
+  ${['Register|Create your account with name, email, phone and a strong password.','Pay and submit|Send K20 by Airtel Money or MTN MoMo, then enter the transaction ID.','Admin verifies|The administrator receives your details and checks the transaction.','Account activated|After confirmation you can request any service and track it.'].map((t,i)=>{const p=t.split('|');return '<div class="tile"><span>STEP '+(i+1)+'</span><b>'+p[0]+'</b><span>'+p[1]+'</span></div>'}).join('')}</div></div>
+  <div class="card" id="sec-services"><h2>Services and fees</h2><p class="sub">Private service fees for Moses Ntembwa. These are not official government, university, HELSB, ECZ, ZAQA or ZRA fees. Buy any 6 services and receive the remaining 6 free. Valid for two months.</p>
+  <div class="grid">${SV.map(s=>'<div class="tile"><span class="pr">K'+s[1]+'</span><b>'+esc(s[0])+'</b></div>').join('')}</div></div>
+  ${contactCard()}
+  <div class="card"><h2>What to expect in this demonstration</h2>
+  <div class="msg">This page is a working demonstration. All data is stored only in your browser. A live website needs a secure server and database for real protection.</div>
+  <ol class="l"><li>Press <b>Create account</b> and register as a student. You are logged in and see status <b>Payment required</b>.</li><li>Enter any transaction ID (for example <b>MP2611ABC123</b>) and press <b>I have paid</b>. Status becomes <b>Awaiting confirmation</b>.</li><li>Press <b>Log out</b>, then open <a href="#admin-login">Admin login</a>.</li><li>Administrator: <b>admin@mosesntembwa.demo</b> &middot; Password: <b>Admin@2026</b> &middot; Security PIN: <b>2468</b></li><li>On the Payments tab you see the student details, amount and transaction ID. Press <b>Confirm</b> or <b>Reject</b>.</li><li>Log in again as the student. The account is <b>Active</b> and services can be requested.</li><li>Try the extras: wrong password five times (account lock), Forgot password, opening the admin area as a student, and waiting 10 minutes for the session timeout.</li></ol></div>
+  <div class="card dark"><h2>Security controls</h2><div class="scroll"><table><tr><th>Control</th><th>In this demo</th><th>On a live site</th></tr>
+  <tr><td>Separate student and admin login</td><td>Yes</td><td>Yes, server checked</td></tr>
+  <tr><td>Admin password plus security PIN</td><td>Yes</td><td>Add authenticator app code</td></tr>
+  <tr><td>Role permissions and URL protection</td><td>Yes, in browser</td><td>Enforced on the server</td></tr>
+  <tr><td>Lock after 5 failed logins</td><td>Yes, 2 minutes</td><td>Server side with IP limits</td></tr>
+  <tr><td>Password recovery by code</td><td>Yes, shown in demo inbox</td><td>Sent by email or SMS</td></tr>
+  <tr><td>Session timeout and secure logout</td><td>Yes, 10 minutes</td><td>Server sessions, HTTPS only</td></tr>
+  <tr><td>SMS OTP phone verification</td><td>Optional switch in admin</td><td>Needs an SMS provider</td></tr>
+  <tr><td>Password storage</td><td>Hashed (SHA-256)</td><td>bcrypt or Argon2 with salt</td></tr></table></div></div>`;
+}
+
+/* ---------- REGISTER ---------- */
+function regPg(){
+  return `<div class="card narrow"><h2>Create student account</h2><p class="sub">Step 1 of 3. Next you pay K20 and submit the transaction ID. The administrator then activates your account.</p><div id="m"></div>
+  <label class="lbl">FULL NAME</label><input class="in" id="n" autocomplete="name">
+  <label class="lbl">EMAIL ADDRESS</label><input class="in" id="e" type="email" autocomplete="email">
+  <label class="lbl">PHONE NUMBER</label><input class="in" id="ph" type="tel" placeholder="0977123456">
+  ${pwField('p','PASSWORD','new-password','oninput="meter(this.value)"')}
+  <div class="bar" style="margin-top:-8px"><i id="pb"></i></div><small id="pt" style="display:block;margin:6px 0 14px">Use 8 or more characters with letters and numbers.</small>
+  ${pwField('p2','CONFIRM PASSWORD','new-password')}
+  <button class="btn" onclick="doReg()">Create account</button><p class="sub" style="margin-top:12px">Already registered? <a href="#student-login">Log in</a></p></div>`;
+}
+function meter(v){let s=0;if(v.length>=8)s++;if(/[a-z]/.test(v)&&/[A-Z]/.test(v))s++;if(/\d/.test(v))s++;if(/[^A-Za-z0-9]/.test(v))s++;$('#pb').style.width=s*25+'%';$('#pt').textContent=['Too weak','Weak','Fair','Good','Strong'][s]}
+async function doReg(){
+  const n=$('#n').value.trim(),e=$('#e').value.trim().toLowerCase(),ph=$('#ph').value.trim(),p=$('#p').value,p2=$('#p2').value;
+  const err=x=>{$('#m').innerHTML='<div class="msg">'+esc(x)+'</div>'};
+  if(n.length<3)return err('Enter your full name.');
+  if(!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e))return err('Enter a valid email address.');
+  if(ph.replace(/\D/g,'').length<9)return err('Enter a valid phone number.');
+  if(p.length<8||!/[A-Za-z]/.test(p)||!/\d/.test(p))return err('Password needs 8 or more characters with letters and numbers.');
+  if(p!==p2)return err('Passwords do not match.');
+  if(DB.users.some(u=>u.email===e))return err('This email is already registered. Please log in.');
+  pendReg={n,e,ph,hash:await H(p)};
+  if(DB.set.otp){const c=String(Math.floor(100000+Math.random()*900000));pendReg.otp=c;inbox('SMS to '+ph+': your verification code is '+c);
+    $('#app').innerHTML='<div class="page"><div class="card narrow"><h2>Verify your phone</h2><p class="sub">Enter the 6 digit code sent by SMS to '+esc(ph)+'.</p><div id="m"></div><input class="in" id="o" inputmode="numeric" maxlength="6"><button class="btn" onclick="verifyOtp()">Verify and continue</button></div></div>';return}
+  finishReg();
+}
+function verifyOtp(){if($('#o').value.trim()!==pendReg.otp){$('#m').innerHTML='<div class="msg">Incorrect code. Please try again.</div>';return}finishReg()}
+function finishReg(){
+  const u={id:rid(),role:'student',name:pendReg.n,email:pendReg.e,tel:pendReg.ph,ph:pendReg.hash,status:'unpaid',inbox:[],t:Date.now()};
+  DB.users.push(u);pendReg=null;log('Student registered',u.email);note('New student registered: '+u.name+' ('+u.tel+')');
+  S={uid:u.id,exp:Date.now()+IDLE};ss();save();go('#dashboard');
+}
+
+/* ---------- LOGIN ---------- */
+function loginPg(role){
+  const a=role==='admin',f=flash;flash='';
+  const cap='<svg viewBox="0 0 64 64"><path d="M32 10 4 24l28 14 28-14z" fill="#fff"/><path d="M14 33v11c0 5 8 10 18 10s18-5 18-10V33l-18 9z" fill="#fff" opacity=".85"/><rect x="56" y="25" width="3" height="19" fill="#fff"/></svg>';
+  const sh='<svg viewBox="0 0 64 64"><path d="M32 6 10 14v16c0 14 9 24 22 28 13-4 22-14 22-28V14z" fill="#fff"/><path d="M23 32l7 7 12-14" stroke="#d6232a" stroke-width="5" fill="none"/></svg>';
+  const words=a?['RESTRICTED AREA','VERIFIED ACCESS ONLY','SECURITY LOG ACTIVE']:['WELCOME BACK','PAY AND CONFIRM','TRACK YOUR REQUESTS','READ OFFICIAL NOTICES'];
+  const pts=a?['Password and security PIN','Locked after 5 failed attempts','Auto logout after 10 minutes']:['Activate your account in minutes','Track every service request','Official news and notices'];
+  const side='<div class="lgside">'+(a?sh:cap)+'<h2>'+(a?'Administrator Portal':'Student Portal')+'</h2><p>'+(a?'Restricted area for authorised staff only. Every sign in is recorded.':'Sign in to activate your account, request services and follow your applications.')+'</p><div class="mq2"><div class="track">'+(words.join('<i></i>')+'<i></i>').repeat(4)+'</div></div><ul>'+pts.map(x=>'<li>'+x+'</li>').join('')+'</ul></div>';
+  const form=`<div class="lgform"><h2 style="font-size:26px">${a?'Staff sign in':'Sign in'}</h2><p class="sub" style="margin-bottom:16px">${a?'Enter your email, password and security PIN.':'Enter your registered email and password.'}</p>${f?'<div class="msg">'+esc(f)+'</div>':''}<div id="m"></div>
+  <label class="lbl" for="e">EMAIL ADDRESS</label><input class="in" id="e" type="email" autocomplete="username" placeholder="name@example.com">
+  ${pwField('p','PASSWORD','current-password')}
+  ${a?pwField('pin','SECURITY PIN','off','inputmode="numeric" maxlength="8"'):''}
+  <p class="hint">Tip: passwords are case sensitive. Tap <b>Show</b> to check what you typed.</p>
+  <button class="btn" onclick="doLogin('${role}')">Sign in</button>
+  <p class="sub" style="margin-top:14px">${a?'<a href="#student-login">Go to student login</a>':'<a href="#forgot">Forgot password?</a> &middot; <a href="#register">Create account</a>'}</p></div>`;
+  return '<div class="lg'+(a?' adm':'')+'">'+side+form+'</div>';
+}
+async function doLogin(role){
+  const e=$('#e').value.trim().toLowerCase(),p=$('#p').value,pin=role==='admin'?$('#pin').value:'';
+  const k=role+':'+e,m=x=>{$('#m').innerHTML='<div class="msg">'+esc(x)+'</div>'};
+  const lk=lockLeft(k);if(lk)return m('Too many failed attempts. This login is locked for '+lk+' more seconds.');
+  const u=DB.users.find(x=>x.email===e&&x.role===role);
+  const ok=u&&u.ph===await H(p)&&(role!=='admin'||u.pin===await H(pin));
+  if(!ok){const left=failTry(k);log('Failed '+role+' login for '+e,'visitor');return m(left>0?'Incorrect login details. '+left+' attempt(s) left before a temporary lock.':'Too many failed attempts. Login locked for 2 minutes.')}
+  if(u.status==='suspended')return m('This account is suspended. Please contact the administrator.');
+  delete DB.tries[k];S={uid:u.id,exp:Date.now()+IDLE};ss();log('Logged in',u.email);save();
+  go(role==='admin'?'#admin':'#dashboard');
+}
+
+/* ---------- PASSWORD RECOVERY ---------- */
+function forgotPg(){
+  if(fStep===1)return `<div class="card narrow"><h2>Recover password</h2><p class="sub">Enter your registered email. A reset code will be sent.</p><div id="m"></div><label class="lbl">EMAIL ADDRESS</label><input class="in" id="e" type="email"><button class="btn" onclick="doForgot()">Send reset code</button><p class="sub" style="margin-top:12px"><a href="#student-login">Back to login</a></p></div>`;
+  return `<div class="card narrow"><h2>Set a new password</h2><div class="msg">If the email is registered, a code has been sent. In this demo it appears in the Demo Inbox.</div><div id="m"></div><label class="lbl">RESET CODE</label><input class="in" id="c" inputmode="numeric" maxlength="6">${pwField('p','NEW PASSWORD','new-password')}<button class="btn" onclick="doReset()">Change password</button></div>`;
+}
+async function doForgot(){
+  const e=$('#e').value.trim().toLowerCase();if(!e)return;
+  const u=DB.users.find(x=>x.email===e&&x.role==='student');
+  if(u){const c=String(Math.floor(100000+Math.random()*900000));DB.resets[e]={h:await H(c),exp:Date.now()+600000};save();inbox('Email to '+e+': your password reset code is '+c+'. It expires in 10 minutes.');log('Password reset requested',e)}
+  fEmail=e;fStep=2;render();
+}
+async function doReset(){
+  const c=$('#c').value.trim(),p=$('#p').value,r=DB.resets[fEmail],m=x=>{$('#m').innerHTML='<div class="msg">'+esc(x)+'</div>'};
+  if(p.length<8||!/[A-Za-z]/.test(p)||!/\d/.test(p))return m('New password needs 8 or more characters with letters and numbers.');
+  if(!r||r.exp<Date.now()||r.h!==await H(c))return m('The code is incorrect or has expired.');
+  const u=DB.users.find(x=>x.email===fEmail);u.ph=await H(p);delete DB.resets[fEmail];delete DB.tries['student:'+fEmail];log('Password changed by recovery',fEmail);save();
+  fStep=1;flash='Password changed. You can now log in.';go('#student-login');
+}
+
+/* ---------- STUDENT AREA ---------- */
+function studentPg(u){
+  const my=DB.pays.filter(p=>p.uid===u.id).slice().reverse(),st=u.status;
+  const lvl=st==='unpaid'?1:st==='awaiting'?2:3;
+  const msgs=(u.inbox||[]).slice(0,2).map(x=>'<div class="msg">'+esc(x)+'</div>').join('');
+  let main='';
+  if(st==='unpaid'||st==='suspended'&&false){
+    main=`<div class="card"><h2>Activate your account</h2><p class="sub">Pay the K20 activation fee, then enter the transaction ID from your confirmation SMS.</p>
+    <div class="scroll"><table><tr><th>Network</th><th>Send money to</th><th>Account name</th></tr><tr><td><b>Airtel Money</b></td><td>0778821833</td><td>Moses Ntembwa</td></tr><tr><td><b>MTN MoMo</b></td><td>0766427244</td><td>MOSES NTEMBWA</td></tr></table></div><div id="m"></div>
+    <label class="lbl" style="margin-top:12px">NETWORK USED</label><select class="in" id="nw"><option>Airtel Money</option><option>MTN MoMo</option></select>
+    <label class="lbl">AMOUNT PAID</label><input class="in" value="K20" readonly>
+    <label class="lbl">TRANSACTION ID</label><input class="in" id="tx" placeholder="e.g. MP2611ABC123" style="text-transform:uppercase">
+    <button class="btn" onclick="doPay()">I have paid</button></div>`;
+  }else if(st==='awaiting'){
+    const p=my.find(x=>x.st==='pending');
+    main=`<div class="card"><h2>Payment submitted</h2><div class="msg">The administrator has been notified and will check transaction <b>${esc(p?p.txn:'')}</b> on their phone. You will be activated as soon as it is confirmed. Log out and log in again to refresh.</div><button class="btn" onclick="render()">Refresh status</button></div>`;
+  }else if(st==='active'){
+    const rq=DB.reqs.filter(r=>r.uid===u.id);
+    main=`<div class="card"><h2>Request services</h2><p class="sub">Tick the services you need. The first 6 are charged and the rest are free.</p>
+    ${SV.map((s,i)=>'<label class="chk"><input type="checkbox" class="sv" value="'+i+'" onchange="calcReq()"><span>'+esc(s[0])+'</span><b>K'+s[1]+'</b></label>').join('')}
+    <div class="row" style="margin-top:14px"><b id="rt">K0 (0 selected, 0 free)</b><button class="btn" onclick="submitReq()">Submit request</button></div></div>
+    <div class="card"><h2>My service requests</h2>${rq.length?'<div class="scroll"><table><tr><th>ID</th><th>Services</th><th>Total</th><th>Status</th><th>Date</th></tr>'+rq.map(r=>'<tr><td>'+r.id+'</td><td>'+r.items.map(esc).join(', ')+'</td><td>K'+r.total+'</td><td><span class="badge on">'+esc(r.st)+'</span></td><td>'+fmt(r.t)+'</td></tr>').join('')+'</table></div>':'<p class="sub">No requests yet.</p>'}</div>`;
+  }else main='<div class="card"><div class="msg">Your account is suspended. Please contact the administrator.</div></div>';
+  return `<div class="card"><div class="row"><div><h2>Welcome, ${esc(u.name)}</h2><p class="sub">${esc(u.email)} &middot; ${esc(u.tel)}</p></div><span class="badge on">${ST[st]}</span></div>
+  <div class="prog"><div class="d">Registered</div><div class="${lvl>=2?'d':''}">Payment submitted</div><div class="${lvl>=3?'d':''}">Admin confirmed</div><div class="${st==='active'?'d':''}">Activated</div></div>${msgs}</div>
+  ${impBanner()}${postsCard(4)}${main}${docsCard(u)}
+  <div class="card"><h2>My payment history</h2>${my.length?'<div class="scroll"><table><tr><th>ID</th><th>Network</th><th>Amount</th><th>Transaction ID</th><th>Status</th><th>Date</th></tr>'+my.map(p=>'<tr><td>'+p.id+'</td><td>'+esc(p.net)+'</td><td>K'+p.amt+'</td><td>'+esc(p.txn)+'</td><td><span class="badge '+(p.st==='confirmed'?'on':'')+'">'+p.st+'</span>'+(p.reason?'<br><small>'+esc(p.reason)+'</small>':'')+'</td><td>'+fmt(p.t)+'</td></tr>').join('')+'</table></div>':'<p class="sub">No payments yet.</p>'}</div>`;
+}
+function doPay(){
+  const u=me();if(!u||u.role!=='student'||u.status!=='unpaid')return;
+  const t=$('#tx').value.trim().toUpperCase(),net=$('#nw').value,m=x=>{$('#m').innerHTML='<div class="msg">'+esc(x)+'</div>'};
+  if(!/^[A-Z0-9]{6,20}$/.test(t))return m('Enter a valid transaction ID (6 to 20 letters or numbers).');
+  if(DB.pays.some(p=>p.txn===t))return m('This transaction ID has already been submitted.');
+  DB.pays.push({id:'P'+(DB.pays.length+1),uid:u.id,name:u.name,email:u.email,tel:u.tel,net,amt:20,txn:t,st:'pending',t:Date.now()});
+  u.status='awaiting';note('NEW PAYMENT from '+u.name+' ('+u.tel+'): K20 via '+net+', transaction ID '+t);log('Submitted payment '+t);save();render();
+}
+function sel(){return[...document.querySelectorAll('.sv:checked')].map(x=>+x.value).sort((a,b)=>a-b)}
+function tot(c){let t=0;c.forEach((i,j)=>{if(j<6)t+=SV[i][1]});return t}
+function calcReq(){const c=sel();$('#rt').textContent='K'+tot(c)+' ('+c.length+' selected, '+Math.max(0,c.length-6)+' free)'}
+function submitReq(){
+  const u=me();if(!u||u.role!=='student'||u.status!=='active')return;const c=sel();
+  if(!c.length)return toast('Please choose at least one service.');
+  DB.reqs.unshift({id:'R'+(DB.reqs.length+1),uid:u.id,name:u.name,items:c.map(i=>SV[i][0]),total:tot(c),st:'Submitted',t:Date.now()});
+  note('SERVICE REQUEST from '+u.name+': '+c.map(i=>SV[i][0]).join(', '));log('Submitted service request');save();toast('Request submitted.');render();
+}
+
+/* ---------- ADMIN AREA ---------- */
+function setTab(t){if(!isAdmin())return;tab=t;render()}
+function adminPg(){
+  const stu=DB.users.filter(u=>u.role==='student'),pend=DB.pays.filter(p=>p.st==='pending');
+  const tabs=[['overview','Overview'],['payments','Payments'],['posts','News and Notices'],['documents','Documents'],['students','Students'],['requests','Requests'],['audit','Security log'],['settings','Settings']];
+  let b='';
+  if(tab==='overview'){
+    b=`<div class="grid"><div class="card"><span class="sub">STUDENTS</span><div class="num">${stu.length}</div></div><div class="card"><span class="sub">AWAITING CONFIRMATION</span><div class="num">${pend.length}</div></div><div class="card"><span class="sub">ACTIVE ACCOUNTS</span><div class="num">${stu.filter(u=>u.status==='active').length}</div></div><div class="card"><span class="sub">SERVICE REQUESTS</span><div class="num">${DB.reqs.length}</div></div></div>
+    <div class="card"><div class="row"><h2>Notifications</h2><button class="btn w" style="border-color:#000" onclick="markRead()">Mark all read</button></div>${DB.notes.length?DB.notes.slice(0,12).map(n=>'<div class="msg" style="'+(n.r?'opacity:.55':'')+'"><b>'+fmt(n.t)+'</b><br>'+esc(n.x)+'</div>').join(''):'<p class="sub">No notifications yet. Register a student and submit a payment to see one.</p>'}</div>`;
+  }else if(tab==='payments'){
+    b=`<div class="card"><h2>Payments awaiting confirmation</h2><p class="sub">Check each transaction ID in your Airtel Money or MTN MoMo app, then confirm or reject.</p>${pend.length?'<div class="scroll"><table><tr><th>ID</th><th>Student</th><th>Phone</th><th>Network</th><th>Amount</th><th>Transaction ID</th><th>Time</th><th>Decision</th></tr>'+pend.map(p=>`<tr><td>${p.id}</td><td>${esc(p.name)}<br><small>${esc(p.email)}</small></td><td>${esc(p.tel)}</td><td>${esc(p.net)}</td><td>K${p.amt}</td><td><b>${esc(p.txn)}</b></td><td>${fmt(p.t)}</td><td><select class="in sm" id="rr${p.id}"><option>Transaction not found</option><option>Amount does not match</option><option>Wrong receiver number</option></select><button class="btn" onclick="confirmPay('${p.id}')">Confirm</button><button class="btn w" style="border-color:#000" onclick="rejectPay('${p.id}')">Reject</button></td></tr>`).join('')+'</table></div>':'<p class="sub">Nothing is waiting. New submissions appear here.</p>'}</div>
+    <div class="card"><h2>Payment history</h2>${DB.pays.filter(p=>p.st!=='pending').length?'<div class="scroll"><table><tr><th>ID</th><th>Student</th><th>Transaction ID</th><th>Status</th><th>Decided by</th></tr>'+DB.pays.filter(p=>p.st!=='pending').map(p=>'<tr><td>'+p.id+'</td><td>'+esc(p.name)+'</td><td>'+esc(p.txn)+'</td><td><span class="badge '+(p.st==='confirmed'?'on':'')+'">'+p.st+'</span>'+(p.reason?'<br><small>'+esc(p.reason)+'</small>':'')+'</td><td>'+esc(p.by||'')+'</td></tr>').join('')+'</table></div>':'<p class="sub">No decisions yet.</p>'}</div>`;
+  }else if(tab==='students'){
+    b=`<div class="card"><h2>Students</h2>${stu.length?'<div class="scroll"><table><tr><th>Name</th><th>Email</th><th>Phone</th><th>Status</th><th>Joined</th><th>Action</th></tr>'+stu.map(u=>'<tr><td>'+esc(u.name)+'</td><td>'+esc(u.email)+'</td><td>'+esc(u.tel)+'</td><td><span class="badge '+(u.status==='active'?'on':'')+'">'+ST[u.status]+'</span></td><td>'+fmt(u.t)+'</td><td><button class="btn w" style="border-color:#000" onclick="toggleUser(\''+u.id+'\')">'+(u.status==='suspended'?'Reactivate':'Suspend')+'</button></td></tr>').join('')+'</table></div>':'<p class="sub">No students registered yet.</p>'}</div>`;
+  }else if(tab==='requests'){
+    b=`<div class="card"><h2>Service requests</h2>${DB.reqs.length?'<div class="scroll"><table><tr><th>ID</th><th>Student</th><th>Services</th><th>Total</th><th>Status</th></tr>'+DB.reqs.map(r=>'<tr><td>'+r.id+'</td><td>'+esc(r.name)+'</td><td>'+r.items.map(esc).join(', ')+'</td><td>K'+r.total+'</td><td><select class="in sm" onchange="setReq(\''+r.id+'\',this.value)">'+['Submitted','In progress','Completed'].map(s=>'<option'+(s===r.st?' selected':'')+'>'+s+'</option>').join('')+'</select></td></tr>').join('')+'</table></div>':'<p class="sub">No requests yet.</p>'}</div>`;
+  }else if(tab==='posts'){b=postsAdmin()}else if(tab==='documents'){b=docsAdmin()}else if(tab==='audit'){
+    b=`<div class="card"><h2>Security log</h2><p class="sub">Logins, failed attempts, blocked access, confirmations and password changes.</p><div class="scroll"><table><tr><th>Time</th><th>User</th><th>Event</th></tr>${DB.audit.map(a=>'<tr><td>'+fmt(a.t)+'</td><td>'+esc(a.w)+'</td><td>'+esc(a.a)+'</td></tr>').join('')}</table></div></div>`;
+  }else{
+    b=`${linksCard()}<div class="card"><h2>Settings</h2><label class="chk"><input type="checkbox" ${DB.set.otp?'checked':''} onchange="toggleOtp(this.checked)"><span>Require SMS OTP phone verification at registration (needs an SMS provider on a live site)</span></label><button class="btn" style="margin-top:14px" onclick="resetDemo()">Erase all demo data</button></div>`;
   }
-  log.appendChild(d); log.scrollTop = log.scrollHeight;
-  return d;
+  return `<div class="card dark"><h2>Administrator dashboard</h2><p class="sub" style="opacity:.85">Signed in as ${esc(me().email)}. Only administrator accounts can see this area.</p><div class="tabs">${tabs.map(t=>'<button class="'+(tab===t[0]?'on':'')+'" onclick="setTab(\''+t[0]+'\')">'+t[1]+(t[0]==='payments'&&pend.length?' ('+pend.length+')':'')+'</button>').join('')}</div></div>${b}`;
 }
-
-async function ask(q) {
-  lastQ = q;
-  app.classList.add('chatting');
-  add(q, 'me');
-  const t = add('Typing…', 'bot');
-  try {
-    const r = await fetch('chat.php', {
-      method:'POST', headers:{'Content-Type':'application/json'},
-      body: JSON.stringify({ message:q, period, history })
-    });
-    const data = await r.json();
-    t.remove(); add(data.reply, 'bot', data.whatsapp); history.push({role:'user',content:q},{role:'assistant',content:data.reply});
-  } catch (e) {
-    t.remove(); add('Network problem. Please check your internet and try again.', 'bot');
-  }
+function confirmPay(id){
+  if(!isAdmin())return;const p=DB.pays.find(x=>x.id===id);if(!p||p.st!=='pending')return;
+  p.st='confirmed';p.by=me().email;const u=DB.users.find(x=>x.id===p.uid);
+  if(u){u.status='active';(u.inbox=u.inbox||[]).unshift('Payment '+p.txn+' was confirmed. Your account is now active.')}
+  log('Confirmed payment '+p.txn);save();toast('Payment confirmed. Student account activated.');render();
 }
-
-document.getElementById('form').addEventListener('submit', e => {
-  e.preventDefault();
-  const q = input.value.trim();
-  if (q) { input.value = ''; ask(q); }
-});
-document.querySelectorAll('#chips button').forEach(b => b.onclick = () => ask(b.textContent));
+function rejectPay(id){
+  if(!isAdmin())return;const p=DB.pays.find(x=>x.id===id);if(!p||p.st!=='pending')return;
+  p.st='rejected';p.by=me().email;p.reason=$('#rr'+id).value;const u=DB.users.find(x=>x.id===p.uid);
+  if(u){u.status='unpaid';(u.inbox=u.inbox||[]).unshift('Payment '+p.txn+' was rejected: '+p.reason+'. Please submit the correct transaction ID.')}
+  log('Rejected payment '+p.txn+' ('+p.reason+')');save();toast('Payment rejected.');render();
+}
+function toggleUser(id){
+  if(!isAdmin())return;const u=DB.users.find(x=>x.id===id);if(!u||u.role!=='student')return;
+  if(u.status==='suspended'){u.status=u.prev||'unpaid'}else{u.prev=u.status;u.status='suspended'}
+  log('Changed account status for '+u.email+' to '+u.status);save();render();
+}
+function setReq(id,v){if(!isAdmin())return;const r=DB.reqs.find(x=>x.id===id);if(r){r.st=v;log('Request '+id+' set to '+v);save()}}
+function markRead(){if(!isAdmin())return;DB.notes.forEach(n=>n.r=true);save();render()}
+function toggleOtp(v){if(!isAdmin())return;DB.set.otp=v;log('SMS OTP '+(v?'enabled':'disabled'));save()}
+function resetDemo(){if(!isAdmin())return;try{localStorage.removeItem('mnDemoDB');sessionStorage.removeItem('mnS')}catch(e){}location.hash='#home';location.reload()}
+/* ---------- NEWS, UPDATES AND NOTICES ---------- */
+let editId=null;const TYPES=['News','Update','Notice'];
+const WAI='<svg width="24" height="24" viewBox="0 0 32 32" style="vertical-align:middle;margin-right:8px">'+'<circle cx="16" cy="16" r="16" fill="#25D366"/><path fill="#fff" d="M16 6.2a9.7 9.7 0 0 0-8.4 14.6L6.2 25.8l5.1-1.3A9.7 9.7 0 1 0 16 6.2z"/><path fill="#25D366" d="M12.3 11.2c.3-.3.8-.3 1 .1l.9 1.9c.1.3 0 .6-.2.8l-.5.6c.8 1.6 2.1 2.8 3.7 3.6l.6-.7c.2-.2.5-.3.8-.2l1.8.9c.4.2.5.6.3 1-.5 1.1-1.6 1.7-2.7 1.4-3.2-.9-5.6-3.2-6.5-6.4-.3-1 .1-2 .8-3z"/>'+'</svg>';
+const postsList=n=>DB.posts.slice().sort((a,b)=>(b.imp?1:0)-(a.imp?1:0)||b.t-a.t).slice(0,n||99);
+function postHTML(p,adm){return '<div class="post '+(p.type==='Notice'?'notice':'')+'"><div class="row"><span class="badge '+(p.type==='Notice'?'red':p.type==='News'?'on':'')+'">'+p.type+'</span>'+(p.imp?'<span class="badge red">Important</span>':'')+'<small>'+fmt(p.t)+'</small></div><h3 style="margin-top:10px">'+esc(p.title)+'</h3><p class="sub" style="margin:0;opacity:.9">'+esc(p.body).replace(/\n/g,'<br>')+'</p>'+(adm?'<div style="margin-top:8px"><button class="btn w" style="border-color:#000" onclick="editPost(\''+p.id+'\')">Edit</button><button class="btn r" onclick="delPost(\''+p.id+'\')">Delete</button></div>':'')+'</div>'}
+function postsCard(n){return DB.posts.length?'<div class="card" id="sec-news"><h2>News, Updates and Notices</h2>'+postsList(n).map(p=>postHTML(p)).join('')+'</div>':''}
+function impBanner(){const p=postsList().find(x=>x.imp);if(!p)return '';const t=esc(p.title)+': '+esc(p.body);return '<div class="alert"><b>IMPORTANT</b><div class="mq"><div class="track">'+(t+'&nbsp;&nbsp;&nbsp;&bull;&nbsp;&nbsp;&nbsp;').repeat(6)+'</div></div></div>'}
+function contactCard(){return '<div class="card dark" id="sec-contact"><div class="row"><div><h2>Contact us on WhatsApp</h2><p class="sub" style="opacity:.85">Questions about services or your account? Message Moses Ntembwa directly on 0771043702.</p></div><a class="btn w" href="https://wa.me/260771043702?text=Hello%20Moses%20Ntembwa%2C%20I%20need%20help." target="_blank" rel="noopener">'+WAI+'Chat on WhatsApp</a></div></div>'}
+function postsAdmin(){const e=DB.posts.find(p=>p.id===editId);
+  return '<div class="card"><h2>'+(e?'Edit post':'Publish News, Update or Notice')+'</h2><p class="sub">Posts appear on the public home page and on every student dashboard straight away.</p><div id="m"></div>'
+  +'<label class="lbl">TYPE</label><select class="in" id="pt">'+TYPES.map(t=>'<option'+(e&&e.type===t?' selected':'')+'>'+t+'</option>').join('')+'</select>'
+  +'<label class="lbl">TITLE</label><input class="in" id="ptitle" maxlength="90" value="'+(e?esc(e.title):'')+'">'
+  +'<label class="lbl">MESSAGE</label><textarea class="in" id="pbody" rows="4" maxlength="600">'+(e?esc(e.body):'')+'</textarea>'
+  +'<label class="chk"><input type="checkbox" id="pimp"'+(e&&e.imp?' checked':'')+'><span>Mark as important (red moving banner at the top of the site)</span></label>'
+  +'<button class="btn" style="margin-top:12px" onclick="savePost()">'+(e?'Save changes':'Publish now')+'</button>'+(e?'<button class="btn w" style="border-color:#000" onclick="editId=null;render()">Cancel</button>':'')+'</div>'
+  +'<div class="card"><h2>Published posts ('+DB.posts.length+')</h2>'+(DB.posts.length?postsList().map(p=>postHTML(p,true)).join(''):'<p class="sub">Nothing published yet.</p>')+'</div>'}
+function savePost(){
+  if(!isAdmin())return;const type=$('#pt').value,title=$('#ptitle').value.trim(),body=$('#pbody').value.trim(),imp=$('#pimp').checked;
+  if(title.length<3||body.length<5){$('#m').innerHTML='<div class="msg">Enter a title and a message.</div>';return}
+  const e=DB.posts.find(p=>p.id===editId);
+  if(e){Object.assign(e,{type,title,body,imp});log('Edited '+type+': '+title)}else{DB.posts.push({id:rid(),type,title,body,imp,t:Date.now(),by:me().email});log('Published '+type+': '+title)}
+  editId=null;save();toast('Published successfully.');render();
+}
+function editPost(id){if(!isAdmin())return;editId=id;tab='posts';render();scrollTo({top:0,behavior:'smooth'})}
+function delPost(id){if(!isAdmin())return;const p=DB.posts.find(x=>x.id===id);DB.posts=DB.posts.filter(x=>x.id!==id);log('Deleted post: '+(p?p.title:id));save();toast('Post deleted.');render()}
+function pwField(id,label,ac,extra){return '<label class="lbl" for="'+id+'">'+label+'</label><div class="pw"><input class="in" id="'+id+'" type="password" autocomplete="'+ac+'" autocapitalize="none" autocorrect="off" spellcheck="false" '+(extra||'')+'><button type="button" class="eye" onclick="eye(\''+id+'\',this)">Show</button></div>'}
+function eye(id,b){const i=$('#'+id),h=i.type==='password';i.type=h?'text':'password';b.textContent=h?'Hide':'Show'}
+addEventListener('keydown',e=>{if(e.key==='Enter'&&e.target.matches&&e.target.matches('#app input:not([type=checkbox])')){const c=e.target.closest('.card'),b=c&&c.querySelector('.btn,.paybtn');if(b){e.preventDefault();b.click()}}});
+/* ---------- MENU ---------- */
+function openMenu(){drawMenu();$('#ov').style.display='block';$('#dr').classList.add('open')}
+function closeMenu(){$('#ov').style.display='none';$('#dr').classList.remove('open')}
+function menuGo(h){closeMenu();go(h)}
+function menuTo(id){closeMenu();const sc=()=>{const e=id&&document.getElementById(id);if(e)e.scrollIntoView({behavior:'smooth'});else scrollTo({top:0,behavior:'smooth'})};if(location.hash!=='#home'&&location.hash!==''){go('#home');setTimeout(sc,450)}else sc()}
+function drawMenu(){const u=me(),it=(l,fn)=>'<button class="mi" onclick="'+fn+'">'+l+'</button>';
+  let h='<div class="dh"><b style="letter-spacing:3px">MENU</b><button onclick="closeMenu()" aria-label="Close menu">&times;</button></div><div class="grp">WEBSITE</div>'
+  +it('Home',"menuTo('')")+it('Services and fees',"menuTo('sec-services')")+it('News and notices',"menuTo('sec-news')")+it('How it works',"menuTo('sec-how')")+it('Contact on WhatsApp',"menuTo('sec-contact')")+'<div class="grp">ACCOUNT</div>';
+  if(!u)h+=it('Create account',"menuGo('#register')")+it('Student login',"menuGo('#student-login')")+it('Administrator login',"menuGo('#admin-login')");
+  else if(u.role==='admin')h+=it('Admin dashboard',"menuGo('#admin')")+it('Log out','closeMenu();logout()');
+  else h+=it('My account',"menuGo('#dashboard')")+it('Log out','closeMenu();logout()');
+  $('#dr').innerHTML=h}
+addEventListener('keydown',e=>{if(e.key==='Escape')closeMenu()});
+/* ---------- DOCUMENTS ---------- */
+const fsz=b=>b<1024?b+' B':b<1048576?Math.round(b/1024)+' KB':(b/1048576).toFixed(1)+' MB';
+function docsCard(u){const my=DB.docs.filter(d=>d.uid===u.id).reverse();
+  return '<div class="card"><h2>My documents</h2><p class="sub">Attach the documents needed for your services. In this demo the file name and details are saved. A live website stores the file itself securely on the server.</p><div id="dm"></div>'
+  +'<label class="lbl">DOCUMENT TYPE</label><select class="in" id="dt"><option>National ID (NRC)</option><option>Grade 12 results slip</option><option>Passport photo</option><option>Admission letter</option><option>Other</option></select>'
+  +'<label class="lbl">CHOOSE FILE</label><input class="in" id="df" type="file"><button class="btn" onclick="addDoc()">Upload document</button>'
+  +(my.length?'<div class="scroll" style="margin-top:14px"><table><tr><th>Type</th><th>File</th><th>Size</th><th>Date</th><th>Status</th></tr>'+my.map(d=>'<tr><td>'+esc(d.cat)+'</td><td>'+esc(d.file)+'</td><td>'+fsz(d.size)+'</td><td>'+fmt(d.t)+'</td><td><span class="badge '+(d.st==='Verified'?'on':d.st==='Rejected'?'red':'')+'">'+d.st+'</span></td></tr>').join('')+'</table></div>':'')+'</div>'}
+function addDoc(){const u=me();if(!u||u.role!=='student')return;const f=$('#df').files[0];
+  if(!f){$('#dm').innerHTML='<div class="msg">Please choose a file first.</div>';return}
+  DB.docs.push({id:'D'+(DB.docs.length+1),uid:u.id,name:u.name,cat:$('#dt').value,file:f.name,size:f.size,st:'Pending review',t:Date.now()});
+  note('DOCUMENT from '+u.name+': '+$('#dt').value+' ('+f.name+')');log('Uploaded document '+f.name);save();toast('Document added.');render()}
+function docsAdmin(){return '<div class="card"><h2>Student documents</h2><p class="sub">Review each document and mark it Verified or Rejected. The student sees the result on their dashboard.</p>'+(DB.docs.length?'<div class="scroll"><table><tr><th>Student</th><th>Type</th><th>File</th><th>Size</th><th>Date</th><th>Status</th></tr>'+DB.docs.map(d=>'<tr><td>'+esc(d.name)+'</td><td>'+esc(d.cat)+'</td><td>'+esc(d.file)+'</td><td>'+fsz(d.size)+'</td><td>'+fmt(d.t)+'</td><td><select class="in sm" onchange="setDoc(\''+d.id+'\',this.value)">'+['Pending review','Verified','Rejected'].map(x=>'<option'+(x===d.st?' selected':'')+'>'+x+'</option>').join('')+'</select></td></tr>').join('')+'</table></div>':'<p class="sub">No documents uploaded yet.</p>')+'</div>'}
+function setDoc(id,v){if(!isAdmin())return;const d=DB.docs.find(x=>x.id===id);if(!d)return;d.st=v;const u=DB.users.find(x=>x.id===d.uid);if(u)(u.inbox=u.inbox||[]).unshift('Your document "'+d.file+'" was marked: '+v+'.');log('Document '+d.file+' set to '+v);save();toast('Document updated.')}
+/* ---------- PORTAL LINKS ---------- */
+function linksCard(){const b=location.href.split('#')[0],ls=[['Student link',b+'#student-login'],['Administrator link',b+'#admin-login']];
+  return '<div class="card"><h2>Portal links</h2><p class="sub">Two separate entrances to the same system. Both use the same student records, payments, requests and documents. If a link opens the home page, open it in a browser such as Chrome, or use the Student Portal and Administrator Portal buttons on the home page.</p>'+ls.map(l=>'<label class="lbl">'+l[0].toUpperCase()+'</label><input class="in" readonly value="'+esc(l[1])+'" onclick="this.select()" style="margin-bottom:8px"><button class="btn w" style="border-color:#000;margin-bottom:14px" data-u="'+esc(l[1])+'" onclick="copyLink(this.dataset.u)">Copy '+l[0].toLowerCase()+'</button>').join('')+'</div>'}
+function copyLink(u){try{navigator.clipboard.writeText(u).then(()=>toast('Link copied.'),()=>toast('Press and hold the link to copy it.'))}catch(e){toast('Press and hold the link to copy it.')}}
+function portals(){return '<div class="grid" style="margin-top:16px"><a class="tile pt" href="#student-login"><b>Student Portal</b><span>Register, pay, request services and read notices.</span><em>Open student login</em></a><a class="tile pt adm" href="#admin-login"><b>Administrator Portal</b><span>Staff only. Confirm payments, post notices and manage students.</span><em>Open admin login</em></a></div>'}
+init();
 </script>
 </body>
 </html>
