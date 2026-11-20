@@ -139,15 +139,14 @@ async function reg(){const n=$("n").value.trim(),e=$("e").value.trim().toLowerCa
 if(n.length<3||!/^\S+@\S+\.\S+$/.test(e))return alert("Enter a valid name and email");if(!p)return alert("Invalid Zambian phone number");if(w.length<8||w!=$("w2").value)return alert("Passwords must match and be 8+ characters");if(!$("tc").checked)return alert("Please tick the box to accept the Terms and Conditions");
 await ready;if(!sb)return alert("Server not configured yet. Add your Supabase keys.");
 const{error}=await sb.auth.signUp({email:e,password:w,options:{data:{name:n,phone:p,terms_accepted_at:new Date().toISOString()},emailRedirectTo:location.origin+location.pathname}});
-if(error)return alert("Could not create the account. The email or phone may already be registered.");
-alert("Account created. Open the verification link we emailed you, then login.");go("Security & Account")}
+if(error)return alert("Could not create the account: "+error.message);
+askCode(e,"signup",null,afterReg)}
 async function login(){await ready;if(locked())return $("msg").textContent="Too many attempts. Try again in 5 minutes.";
 if(!sb)return $("msg").textContent="Server not configured yet.";
 const{error}=await sb.auth.signInWithPassword({email:$("le").value.trim().toLowerCase(),password:$("lw").value});
-if(error){fail();return $("msg").textContent=/confirm/i.test(error.message)?"Please verify your email first.":"Login failed: "+error.message}
+if(error){if(/confirm/i.test(error.message)){const em=$("le").value.trim().toLowerCase();await sb.auth.resend({type:"signup",email:em});return askCode(em,"signup","Your email is not verified. Enter the code we just emailed to "+esc(em),afterReg)}fail();return $("msg").textContent="Login failed: "+error.message}
 tries=0;await loadProfile();if(!U)return $("msg").textContent="Signed in, but profile problem: "+LPE;
 await loadData();lg("Login");vis(U.email);note("Welcome back! New login to your account.");go("Dashboard");welcome()}
-function forgot(){dlg("Enter your account email","Email",async e=>{if(sb&&e)await sb.auth.resetPasswordForEmail(e.toLowerCase(),{redirectTo:location.origin+location.pathname});alert("If the account exists, a reset link has been emailed.")})}
 async function ad(){await ready;if(!sb)return alert("Server not configured yet.");if(locked())return alert("Too many attempts. Try again later.");
 const{error}=await sb.auth.signInWithPassword({email:$("ae").value.trim().toLowerCase(),password:$("ap").value});
 if(error){fail();return alert("Access denied: "+error.message)}
@@ -164,11 +163,17 @@ async function rq(i){const{error}=await sb.from("requests").insert({service:SV[i
 async function us2(i,v){const r=DB.reqs[i];const{error}=await sb.from("requests").update({status:v}).eq("id",r.id);if(error)return alert("Not allowed");r.st=v}
 async function tg(e,k){const x=DB.accs.find(y=>y.email==e);const p=k=="s"?{status:x.status=="Active"?"Suspended":"Active"}:{cust:!x.cust};const{error}=await sb.from("profiles").update(p).eq("id",x.id);if(error)return alert("Not allowed");Object.assign(x,p);ul()}
 function fbk(i,n){dlg("Add a comment (optional)","Tell us about your experience",async c=>{const r=DB.reqs[i];const{error}=await sb.rpc("rate_request",{rid:r.id,stars:n,note:c});if(error)return alert("Could not save your review");await loadData();note("Thank you for your review!");go("Security & Account")})}
+function askCode(e,type,msg,after){modal(`<b>${msg||"Enter the code we emailed to "+esc(e)}</b><input id="dv" inputmode="numeric" autocomplete="one-time-code" placeholder="Code from email"><div class="row"><button id="dok">Verify</button> <button class="alt" id="drs">Resend code</button> <button class="alt" onclick="cm()">Cancel</button></div>`);$("dv").focus();
+$("dok").onclick=async()=>{const c=$("dv").value.replace(/\D/g,"");if(c.length<6)return;$("dok").disabled=true;const{error}=await sb.auth.verifyOtp({email:e,token:c,type});if(error)return askCode(e,type,"Wrong or expired code. Try again.",after);cm();after()};
+$("drs").onclick=async()=>{$("drs").disabled=true;const r=type=="signup"?await sb.auth.resend({type:"signup",email:e}):await sb.auth.resetPasswordForEmail(e);$("drs").textContent=r.error?"Wait a while, then retry":"Code sent"}}
+async function afterReg(){await loadProfile();await loadData();if(!U)return alert("Account problem. Please contact support.");nav();lg("Registered");go("Dashboard");welcome()}
+function forgot(){dlg("Enter your account email","Email",async e=>{await ready;if(!sb||!e)return;e=e.toLowerCase();const r=await sb.auth.resetPasswordForEmail(e);if(r.error)return alert("Could not send the code: "+r.error.message);
+askCode(e,"recovery",null,()=>{window.OTPR=true;dlg("Choose a new password (8+ characters)","New password",async p=>{if(p.length<8){window.OTPR=false;return alert("Password too short. Start again.")}const{error}=await sb.auth.updateUser({password:p});window.OTPR=false;alert(error?"Could not reset. Try again.":"Password reset. Please login.");await out()},1)})})}
 async function boot(){const AUTHH=/access_token|refresh_token|type=/.test(location.hash),route=()=>{if(location.hash=="#MrsheMrshe")admin();else go(MENU[(parseInt(location.hash.slice(1))||1)-1]?.[0]||"Dashboard")};
 nav();addEventListener("hashchange",()=>{if(location.hash=="#MrsheMrshe")admin()});if(!AUTHH)route();
 ready=(async()=>{await new Promise(r=>{const x=document.createElement("script");x.src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.110.1/dist/umd/supabase.js";x.onload=r;x.onerror=r;document.head.appendChild(x)});initSB();
 if(!sb){if(AUTHH)route();return alert("Could not connect to the database. Check your internet and the Supabase keys.")}
-sb.auth.onAuthStateChange(ev=>{if(ev=="PASSWORD_RECOVERY")dlg("Choose a new password (8+ characters)","New password",async p=>{if(p.length<8)return alert("Password too short");const{error}=await sb.auth.updateUser({password:p});alert(error?"Could not reset. Request a new link.":"Password reset. Please login.");await out()},1)});
+sb.auth.onAuthStateChange(ev=>{if(ev=="PASSWORD_RECOVERY"&&!window.OTPR)dlg("Choose a new password (8+ characters)","New password",async p=>{if(p.length<8)return alert("Password too short");const{error}=await sb.auth.updateUser({password:p});alert(error?"Could not reset. Request a new link.":"Password reset. Please login.");await out()},1)});
 await loadProfile();await loadData();if(U)vis(U.email);if(U||AUTHH){nav();route()}})();await ready}
 
 
